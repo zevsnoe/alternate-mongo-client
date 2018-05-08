@@ -1,7 +1,7 @@
 package db.client.api.controller;
 
 import db.client.api.dto.QueryResultDto;
-import db.client.app.contract.QueryAdapter;
+import db.client.app.core.ClientInteractor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -23,11 +23,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/queries/mongo", produces = APPLICATION_JSON_VALUE)
 public class MongoController {
 
-	private final QueryAdapter adapter;
+	private final ClientInteractor interactor;
 
 	@Autowired
-	public MongoController(QueryAdapter adapter) {
-		this.adapter = adapter;
+	public MongoController(ClientInteractor interactor) {
+		this.interactor = interactor;
 	}
 
 	@ResponseStatus(HttpStatus.OK)
@@ -39,7 +39,7 @@ public class MongoController {
 	})
 	@RequestMapping(value = "/execute", method = RequestMethod.POST)
 	public QueryResultDto execute(@RequestBody @Valid String query) {
-		adapter.adopt(query);
+		interactor.interactWith(null, query);
 		QueryResultDto queryResultDto = new QueryResultDto();
 		queryResultDto.setMessage("Executed successfully!");
 		return queryResultDto;
