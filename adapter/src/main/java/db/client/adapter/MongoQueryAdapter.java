@@ -1,5 +1,6 @@
-package db.client.app.adapter;
+package db.client.adapter;
 
+import db.client.adapter.validator.QueryValidationError;
 import db.client.app.contract.QueryAdapter;
 import org.springframework.stereotype.Component;
 
@@ -7,8 +8,7 @@ import org.springframework.stereotype.Component;
 public class MongoQueryAdapter implements QueryAdapter {
 
 	public String adopt(String query) {
-		System.out.println("Adopting query to mongo syntax started: " + query);
-		return null;
+		throw new QueryValidationError();
 	}
 
 }

@@ -1,5 +1,4 @@
 dependencies {
-	//compile 'org.mongodb:mongodb-driver:3.7.0'
 	compile 'org.springframework:spring-context:5.0.5.RELEASE'
-	runtime project(":adapter")
+	compile project(':app')
 }

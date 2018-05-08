@@ -1,3 +1,4 @@
 rootProject.name = 'alternate db client'
 include 'api'
 include 'app'
+include 'adapter'
