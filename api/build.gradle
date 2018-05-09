@@ -12,6 +12,8 @@ buildscript {
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+mainClassName = 'db.client.api.Application'
 
 dependencies {
 	compile(project(':app'))
