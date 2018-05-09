@@ -1,4 +1,4 @@
-package db.client.app.contract;
+package db.client.adapter;
 
 @FunctionalInterface
 public interface QueryAdapter {
