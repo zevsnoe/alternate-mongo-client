@@ -1,0 +1,4 @@
+rootProject.name = 'alternate_db_client'
+include 'api'
+include 'app'
+include 'adapter'
