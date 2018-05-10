@@ -9,6 +9,9 @@ jdk:
 before_install:
  - chmod +x gradlew
 
+script:
+ - ./gradlew build --scan -s
+
 deploy:
   provider: pages
   skip-cleanup: true
@@ -17,9 +20,8 @@ deploy:
 on:
    branch: master
 
-after_install:
 script:
- - ./gradlew.bat run
+ - ./gradlew run
 
 #TODO: boot on travis hosted on
 #script:
