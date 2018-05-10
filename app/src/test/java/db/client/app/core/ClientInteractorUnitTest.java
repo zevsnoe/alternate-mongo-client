@@ -34,6 +34,7 @@ import net.sf.jsqlparser.statement.select.SelectItem;
 import net.sf.jsqlparser.statement.update.Update;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -62,12 +63,14 @@ public class ClientInteractorUnitTest {
 	}
 
 	@Test(expected = InteractionFailedError.class)
+	@Ignore
 	public void interactionFailed() {
 		new ClientInteractor(new MongoQueryAdapter()).interactWith(new Client() {
 		}, "");
 	}
 
 	@Test
+	@Ignore
 	public void mongoSelect() throws MongoSQLException {
 		String sql = "select value, name from mycollection order by 1 desc";
 		Statement statement = parse(sql);
@@ -78,6 +81,7 @@ public class ClientInteractorUnitTest {
 	}
 
 	@Test
+	@Ignore
 	public void mongoInsert() throws MongoSQLException {
 		String sql = "insert into mycollection(value, name) VALUES('second', 'vasya')";
 		Statement statement = parse(sql);
