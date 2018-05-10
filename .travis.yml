@@ -18,6 +18,7 @@ on:
    branch: master
 
 after_install:
+script:
  - ./gradlew.bat run
 
 #TODO: boot on travis hosted on
