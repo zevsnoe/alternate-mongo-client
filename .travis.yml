@@ -1,6 +1,3 @@
-#before_script
-# - sleep 15
-# - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 install: gradle wrapper --gradle-version 4.3
 language: java
 jdk:
@@ -16,6 +13,3 @@ deploy:
   keep-history: true
 on:
    branch: master
-
-script:
- - ./gradlew run
