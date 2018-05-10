@@ -17,8 +17,11 @@ deploy:
 on:
    branch: master
 
+after_install:
+ - ./gradlew.bat run
+
 #TODO: boot on travis hosted on
 #script:
 # after_success
-#- ./gradlew.bat bootRun
+#- ./gradlew.bat run
 
