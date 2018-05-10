@@ -1,7 +1,4 @@
-#before_script
-# - sleep 15
-# - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
-install: gradle wrapper --gradle-version 4.2
+install: gradle wrapper --gradle-version 4.3
 language: java
 jdk:
  - oraclejdk8
@@ -16,12 +13,3 @@ deploy:
   keep-history: true
 on:
    branch: master
-
-after_install:
- - ./gradlew.bat run
-
-#TODO: boot on travis hosted on
-#script:
-# after_success
-#- ./gradlew.bat run
-

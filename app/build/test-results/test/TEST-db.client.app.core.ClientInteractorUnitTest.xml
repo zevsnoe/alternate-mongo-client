@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="db.client.app.core.ClientInteractorUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-05-10T18:58:12" hostname="travis-job-zevsnoe-alternate-mong-377414113.travisci.net" time="0.002">
+<testsuite name="db.client.app.core.ClientInteractorUnitTest" tests="3" skipped="3" failures="0" errors="0" timestamp="2018-05-10T21:06:58" hostname="travis-job-zevsnoe-alternate-mong-377463532.travisci.net" time="0.0">
   <properties/>
-  <testcase name="interactionFailed" classname="db.client.app.core.ClientInteractorUnitTest" time="0.002"/>
+  <testcase name="mongoInsert" classname="db.client.app.core.ClientInteractorUnitTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="interactionFailed" classname="db.client.app.core.ClientInteractorUnitTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="mongoSelect" classname="db.client.app.core.ClientInteractorUnitTest" time="0.0">
+    <skipped/>
+  </testcase>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
