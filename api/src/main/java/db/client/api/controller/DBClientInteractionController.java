@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@Api(value = "DataBase Client Controller", description = "Run sql queries on mongo db", produces = APPLICATION_JSON_VALUE)
+@Api(value = "DataBase Client Controller", description = "Run sql queries on specified db", produces = APPLICATION_JSON_VALUE)
 @RequestMapping(value = "/db/client/", produces = APPLICATION_JSON_VALUE)
 public class DBClientInteractionController {
 
@@ -44,9 +44,10 @@ public class DBClientInteractionController {
 	})
 	@RequestMapping(value = "/{dbType}/execute", method = RequestMethod.POST)
 	public QueryResultDto execute(@RequestBody @Valid String query, @PathVariable String dbType) {
-		interactor.interactWith(clientFactory.getClient(dbType), query);
+		Object o = interactor.interactWith(clientFactory.getClient(dbType), query);
 		QueryResultDto queryResultDto = new QueryResultDto();
 		queryResultDto.setMessage("Executed successfully!");
+		queryResultDto.setResult(o);
 		return queryResultDto;
 	}
 
