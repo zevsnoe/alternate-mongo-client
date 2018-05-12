@@ -4,9 +4,8 @@ import javafx.util.Pair;
 
 import java.util.List;
 
-public class UpdateAdoptedStatement extends AdoptedStatement {
+public class UpdateAdoptedStatement extends WhereAdoptedStatement {
 	private List<Pair<String, Object>> values;
-	private Pair<String, Object> whereStatement;
 
 	public List<Pair<String, Object>> getValues() {
 		return values;
@@ -17,12 +16,4 @@ public class UpdateAdoptedStatement extends AdoptedStatement {
 		return this;
 	}
 
-	public Pair<String, Object> getWhereStatement() {
-		return whereStatement;
-	}
-
-	public UpdateAdoptedStatement setWhereStatement(Pair<String, Object> whereStatement) {
-		this.whereStatement = whereStatement;
-		return this;
-	}
 }
