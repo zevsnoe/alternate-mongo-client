@@ -8,7 +8,6 @@ import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.insert.Insert;
-import net.sf.jsqlparser.statement.select.Select;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -20,20 +19,23 @@ public class InsertConverter implements Converter<Insert> {
 
 	public AdoptedStatement convert(Insert statement) {
 		List columns = statement.getColumns();
+		validateColumns(statement, columns);
+
+		return new InsertAdoptedStatement()
+				.setValues(fromValuesOf(statement, columns))
+				.setCollectionName(fromTableName(statement));
+	}
+
+	private void validateColumns(Insert statement, List columns) {
 		if (CollectionUtils.isEmpty(columns))
 			throw new InvalidSQLException("Could not find columns to insert to");
 
 		if (!(statement.getItemsList() instanceof ExpressionList)) {
 			throw new UnsupportedOperationException("Sub selects are not supported");
 		}
-
-		String tableName = statement.getTable().getName();
-		List<Pair<String, Object>> valuePairs = convertValues(statement, columns);
-
-		return new InsertAdoptedStatement().setValues(valuePairs).setCollectionName(tableName);
 	}
 
-	private List<Pair<String, Object>> convertValues(Insert insertStatement, List columns) {
+	private List<Pair<String, Object>> fromValuesOf(Insert insertStatement, List columns) {
 		List values = ((ExpressionList) insertStatement.getItemsList()).getExpressions();
 
 		if (columns.size() != values.size())
@@ -44,6 +46,10 @@ public class InsertConverter implements Converter<Insert> {
 			valuePairs.add(new Pair<>(columns.get(i).toString(), toFieldValue((Expression) values.get(i))));
 		}
 		return valuePairs;
+	}
+
+	private String fromTableName(Insert statement) {
+		return statement.getTable().getName();
 	}
 
 }

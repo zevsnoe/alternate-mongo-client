@@ -7,7 +7,11 @@ import net.sf.jsqlparser.statement.drop.Drop;
 public class DropConverter implements Converter<Drop> {
 
 	public AdoptedStatement convert(Drop statement) {
-		return new AdoptedStatement().setCollectionName(statement.getName());
+		return new AdoptedStatement().setCollectionName(fromTableName(statement));
+	}
+
+	private String fromTableName(Drop statement) {
+		return statement.getName();
 	}
 
 }

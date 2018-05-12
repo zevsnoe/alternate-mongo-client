@@ -3,9 +3,6 @@ package db.client.adapter.mongo.converter;
 import db.client.adapter.contract.Converter;
 import db.client.adapter.mongo.bean.AdoptedStatement;
 import db.client.adapter.mongo.bean.SelectAdoptedStatement;
-import javafx.util.Pair;
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.AllColumns;
 import net.sf.jsqlparser.statement.select.PlainSelect;
@@ -17,32 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.adapter.mongo.helper.ExpressionHelper.toFieldName;
-import static db.client.adapter.mongo.helper.ExpressionHelper.toFieldValue;
+import static db.client.adapter.mongo.helper.WhereStatementHelper.from;
 
 public class SelectConverter implements Converter<Select> {
 
 	public AdoptedStatement convert(Select statement) {
+		PlainSelect plainSelect = validateAndGetSelectBody(statement);
+		return new SelectAdoptedStatement()
+				.setFields(fromFieldsOf(plainSelect))
+				.setWhereStatement(from(plainSelect.getWhere()))
+				.setCollectionName(fromTableName(plainSelect));
+	}
+
+	private PlainSelect validateAndGetSelectBody(Select statement) {
 		if (!(statement.getSelectBody() instanceof PlainSelect))
-			throw new UnsupportedOperationException("Can handle plain select statements");
+			throw new UnsupportedOperationException("Can handle plain select statements at the moment.");
 
 		PlainSelect plainSelect = (PlainSelect) statement.getSelectBody();
 		if (!(plainSelect.getFromItem() instanceof Table))
-			throw new UnsupportedOperationException("Can select only tables");
+			throw new UnsupportedOperationException("Can select only from tables at the moment.");
 
-		String tableName = convertFromStatement(plainSelect);
-		List<String> fields = convertFields(plainSelect);
-		Pair<String, Object> whereStatement = convertWhereStatement(plainSelect.getWhere());
-
-		return new SelectAdoptedStatement().setFields(fields)
-				.setWhereStatement(whereStatement)
-				.setCollectionName(tableName);
+		return plainSelect;
 	}
 
-	private String convertFromStatement(PlainSelect ps) {
-		return ((Table) ps.getFromItem()).getName();
-	}
-
-	private List<String> convertFields(PlainSelect ps) {
+	private List<String> fromFieldsOf(PlainSelect ps) {
 		List<String> fields = new ArrayList<>();
 		for (Object o : ps.getSelectItems()) {
 			SelectItem selectItem = (SelectItem) o;
@@ -60,17 +55,8 @@ public class SelectConverter implements Converter<Select> {
 		return fields;
 	}
 
-	//TODO: rid of code duplication - same code in SelectAdapter
-	Pair<String, Object> convertWhereStatement(Expression e) {
-		if (e == null)
-			return null;
-
-		if (e instanceof EqualsTo) {
-			EqualsTo eq = (EqualsTo) e;
-			return new Pair<>(toFieldName(eq.getLeftExpression()), toFieldValue(eq.getRightExpression()));
-		} else {
-			throw new UnsupportedOperationException("Can't adopt: " + e.getClass().getSimpleName() + " operation yet");
-		}
+	private String fromTableName(PlainSelect ps) {
+		return ((Table) ps.getFromItem()).getName();
 	}
 
 }
