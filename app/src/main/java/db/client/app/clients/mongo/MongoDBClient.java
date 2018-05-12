@@ -9,6 +9,7 @@ import db.client.adapter.mongo.bean.InsertAdoptedStatement;
 import db.client.adapter.mongo.bean.SelectAdoptedStatement;
 import db.client.adapter.mongo.bean.UpdateAdoptedStatement;
 import db.client.adapter.mongo.validator.MongoSQLAdapterException;
+import db.client.app.MongoConfig;
 import db.client.app.clients.executor.DropQueryExecutor;
 import db.client.app.clients.executor.InsertQueryExecutor;
 import db.client.app.clients.executor.SelectQueryExecutor;
@@ -27,6 +28,7 @@ public class MongoDBClient implements Client {
 	private final InsertQueryExecutor insertQueryExecutor;
 	private final UpdateQueryExecutor updateQueryExecutor;
 	private final SelectQueryExecutor selectQueryExecutor;
+	private final MongoConfig mongoConfig;
 
 	MongoClient mongoClient;
 	DB db;
@@ -35,18 +37,18 @@ public class MongoDBClient implements Client {
 	public MongoDBClient(DropQueryExecutor dropQueryExecutor,
 						 InsertQueryExecutor insertQueryExecutor,
 						 UpdateQueryExecutor updateQueryExecutor,
-						 SelectQueryExecutor selectQueryExecutor) {
+						 SelectQueryExecutor selectQueryExecutor, MongoConfig mongoConfig) {
 		this.dropQueryExecutor = dropQueryExecutor;
 		this.insertQueryExecutor = insertQueryExecutor;
 		this.updateQueryExecutor = updateQueryExecutor;
 		this.selectQueryExecutor = selectQueryExecutor;
+		this.mongoConfig = mongoConfig;
 	}
 
-	//TODO: pass from properties
 	@PostConstruct
 	public void init() {
-		mongoClient = new MongoClient("localhost", 27017);
-		db = mongoClient.getDB("mydb");
+		mongoClient = new MongoClient(mongoConfig.getHost(), mongoConfig.getPort());
+		db = mongoClient.getDB(mongoConfig.getName());
 	}
 
 	//TODO: refactor, use polymorphic dispatch via pattern(visitor again - or mb go structural?)

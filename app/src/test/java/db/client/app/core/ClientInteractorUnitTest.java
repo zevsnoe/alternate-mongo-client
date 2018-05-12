@@ -1,6 +1,7 @@
 package db.client.app.core;
 
 import db.client.adapter.mongo.MongoQueryAdapter;
+import db.client.app.MongoConfig;
 import db.client.app.clients.executor.DropQueryExecutor;
 import db.client.app.clients.executor.InsertQueryExecutor;
 import db.client.app.clients.executor.SelectQueryExecutor;
@@ -34,10 +35,11 @@ public class ClientInteractorUnitTest {
 	}*/
 
 	private MongoDBClient client;
+	private MongoConfig mongoConfig;
 
 	@Before
 	public void init() {
-		client = new MongoDBClient(dropQueryExecutor, insertQueryExecutor, updateQueryExecutor, selectQueryExecutor);
+		client = new MongoDBClient(dropQueryExecutor, insertQueryExecutor, updateQueryExecutor, selectQueryExecutor, mongoConfig);
 	}
 
 	@Test(expected = InteractionFailedError.class)

@@ -59,22 +59,22 @@ public class MongoQueryAdapter implements QueryAdapter {
 		private AdoptedStatement statement = null;
 
 		@Override
-		synchronized public void visit(Select select) {
+		public void visit(Select select) {
 			statement = selectConverter.convert(select);
 		}
 
 		@Override
-		synchronized public void visit(Update update) {
+		public void visit(Update update) {
 			statement = updateConverter.convert(update);
 		}
 
 		@Override
-		synchronized public void visit(Insert insert) {
+		public void visit(Insert insert) {
 			statement = insertConverter.convert(insert);
 		}
 
 		@Override
-		synchronized public void visit(Drop drop) {
+		public void visit(Drop drop) {
 			statement = dropConverter.convert(drop);
 		}
 
