@@ -39,6 +39,7 @@ public class MongoQueryAdapter implements QueryAdapter {
 		try {
 			statement.accept(statementVisitor);
 		} catch (Exception e){
+			e.printStackTrace();
 			throw new MongoSQLAdapterException("Can't adopt due to internal error");
 		}
 

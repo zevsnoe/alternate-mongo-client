@@ -3,14 +3,14 @@ package db.client.adapter.mongo.bean;
 import java.util.List;
 
 public class SelectAdoptedStatement extends WhereAdoptedStatement {
-	private List<String> fields;
+	private List<String> projections;
 
-	public List<String> getFields() {
-		return fields;
+	public List<String> getProjections() {
+		return projections;
 	}
 
-	public SelectAdoptedStatement setFields(List<String> fields) {
-		this.fields = fields;
+	public SelectAdoptedStatement setProjections(List<String> projections) {
+		this.projections = projections;
 		return this;
 	}
 

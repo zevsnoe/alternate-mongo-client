@@ -17,7 +17,7 @@ public class WhereStatementHelper {
 			EqualsTo eq = (EqualsTo) e;
 			return new Pair<>(toFieldName(eq.getLeftExpression()), toFieldValue(eq.getRightExpression()));
 		} else {
-			throw new UnsupportedOperationException("Can't adopt: " + e.getClass().getSimpleName() + " operation yet");
+			throw new UnsupportedOperationException("Can't adopt " + e.getClass().getSimpleName() + " operation yet");
 		}
 	}
 }

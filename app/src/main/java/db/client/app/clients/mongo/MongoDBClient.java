@@ -1,8 +1,8 @@
 package db.client.app.clients.mongo;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import db.client.adapter.mongo.bean.AdoptedStatement;
 import db.client.adapter.mongo.bean.DropAdoptedStatement;
 import db.client.adapter.mongo.bean.InsertAdoptedStatement;
@@ -31,13 +31,14 @@ public class MongoDBClient implements Client {
 	private final MongoConfig mongoConfig;
 
 	MongoClient mongoClient;
-	DB db;
+	MongoDatabase database;
 
 	@Autowired
 	public MongoDBClient(DropQueryExecutor dropQueryExecutor,
 						 InsertQueryExecutor insertQueryExecutor,
 						 UpdateQueryExecutor updateQueryExecutor,
-						 SelectQueryExecutor selectQueryExecutor, MongoConfig mongoConfig) {
+						 SelectQueryExecutor selectQueryExecutor,
+						 MongoConfig mongoConfig) {
 		this.dropQueryExecutor = dropQueryExecutor;
 		this.insertQueryExecutor = insertQueryExecutor;
 		this.updateQueryExecutor = updateQueryExecutor;
@@ -48,7 +49,7 @@ public class MongoDBClient implements Client {
 	@PostConstruct
 	public void init() {
 		mongoClient = new MongoClient(mongoConfig.getHost(), mongoConfig.getPort());
-		db = mongoClient.getDB(mongoConfig.getName());
+		database = mongoClient.getDatabase(mongoConfig.getName());
 	}
 
 	//TODO: refactor, use polymorphic dispatch via pattern(visitor again - or mb go structural?)
@@ -69,7 +70,7 @@ public class MongoDBClient implements Client {
 		return queryExecutor.execute(adoptedStatement, getCollection(adoptedStatement));
 	}
 
-	private DBCollection getCollection(AdoptedStatement adoptedStatement) {
-		return db.getCollection(adoptedStatement.getCollectionName());
+	private MongoCollection getCollection(AdoptedStatement adoptedStatement) {
+		return database.getCollection(adoptedStatement.getCollectionName());
 	}
 }

@@ -21,7 +21,7 @@ public class SelectConverter implements Converter<Select> {
 	public AdoptedStatement convert(Select statement) {
 		PlainSelect plainSelect = validateAndGetSelectBody(statement);
 		return new SelectAdoptedStatement()
-				.setFields(fromFieldsOf(plainSelect))
+				.setProjections(fromFieldsOf(plainSelect))
 				.setWhereStatement(from(plainSelect.getWhere()))
 				.setCollectionName(fromTableName(plainSelect));
 	}

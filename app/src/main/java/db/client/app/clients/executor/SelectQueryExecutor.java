@@ -1,52 +1,39 @@
 package db.client.app.clients.executor;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import db.client.adapter.mongo.bean.SelectAdoptedStatement;
-import db.client.app.contract.FilterService;
 import db.client.app.contract.QueryExecutor;
-import org.springframework.beans.factory.annotation.Autowired;
+import javafx.util.Pair;
+import org.bson.conversions.Bson;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Projections.excludeId;
+import static com.mongodb.client.model.Projections.fields;
+import static com.mongodb.client.model.Projections.include;
+
 @Repository
 public class SelectQueryExecutor implements QueryExecutor<SelectAdoptedStatement> {
 
-	private final FilterService filterService;
-
-	@Autowired
-	public SelectQueryExecutor(FilterService filterService) {
-		this.filterService = filterService;
-	}
-
 	@Override
-	public Object execute(SelectAdoptedStatement statement, DBCollection collection) {
-		BasicDBObject fields = fields(statement);
-		BasicDBObject filter = filterService.filter(statement);
-		return out(collection.find(filter, fields));
+	public Object execute(SelectAdoptedStatement statement, MongoCollection collection) {
+		Pair<String, Object> whereStatement = statement.getWhereStatement();
+		Bson filter = new BasicDBObject();
+		if (null != whereStatement) {
+			filter = eq(whereStatement.getKey(), whereStatement.getValue());
+		}
+		MongoCursor cursor = collection.find(filter).projection(fields(include(statement.getProjections()), excludeId())).iterator();
+		return out(cursor);
 	}
 
-	private BasicDBObject fields(SelectAdoptedStatement statement) {
-		BasicDBObject fields = new BasicDBObject();
-		fields.put("_id", 0); //TODO: consider showing if in fields
-		for (String fieldName : statement.getFields()) {
-			fields.put(fieldName, 1);
-		}
-		return fields;
-	}
-
-	//TODO: revamp the out design
-	private Object out(DBCursor cursor) {
-		List<DBObject> list = new ArrayList<>();
-		while(cursor.hasNext()) {
-			DBObject object = cursor.next();
-			System.out.println(object);
-			list.add(object);
-		}
+	private List out(MongoCursor cursor) {
+		List list = new ArrayList<>();
+		while(cursor.hasNext()) list.add(cursor.next());
 		return list;
 	}
 }
