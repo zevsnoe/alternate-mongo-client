@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClientFactory implements ClientFactoryInterface {
+public class MongoClientFactory implements ClientFactoryInterface {
 
 	private final Client mongoDBClient;
 
 	@Autowired
-	public ClientFactory(Client mongoDBClient) {
+	public MongoClientFactory(Client mongoDBClient) {
 		this.mongoDBClient = mongoDBClient;
 	}
 
