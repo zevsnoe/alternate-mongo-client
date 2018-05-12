@@ -1,5 +1,6 @@
 package db.client.adapter.mongo.converter;
 
+import db.client.adapter.contract.Converter;
 import db.client.adapter.mongo.bean.AdoptedStatement;
 import db.client.adapter.mongo.bean.SelectAdoptedStatement;
 import javafx.util.Pair;
@@ -18,7 +19,7 @@ import java.util.List;
 import static db.client.adapter.mongo.helper.ExpressionHelper.toFieldName;
 import static db.client.adapter.mongo.helper.ExpressionHelper.toFieldValue;
 
-public class SelectConverter {
+public class SelectConverter implements Converter<Select> {
 
 	public AdoptedStatement convert(Select statement) {
 		if (!(statement.getSelectBody() instanceof PlainSelect))

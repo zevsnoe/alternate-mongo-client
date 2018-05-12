@@ -1,5 +1,6 @@
 package db.client.adapter.mongo.converter;
 
+import db.client.adapter.contract.Converter;
 import db.client.adapter.mongo.bean.AdoptedStatement;
 import db.client.adapter.mongo.bean.UpdateAdoptedStatement;
 import db.client.adapter.mongo.helper.ExpressionHelper;
@@ -14,7 +15,7 @@ import java.util.List;
 import static db.client.adapter.mongo.helper.ExpressionHelper.toFieldName;
 import static db.client.adapter.mongo.helper.ExpressionHelper.toFieldValue;
 
-public class UpdateConverter {
+public class UpdateConverter implements Converter<Update> {
 
 	public AdoptedStatement convert(Update statement) {
 		Pair<String, Object> whereStatement = convertWhereStatement(statement.getWhere());

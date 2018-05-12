@@ -42,9 +42,9 @@ public class DBClientInteractionController {
 			@ApiResponse(code = 400, message = "Query is not valid"),
 			@ApiResponse(code = 500, message = "Error occurred while executing query")
 	})
-	@RequestMapping(value = "/{dbType}/execute", method = RequestMethod.POST)
-	public QueryResultDto execute(@RequestBody @Valid String query, @PathVariable String dbType) {
-		Object o = interactor.interactWith(clientFactory.getClient(dbType), query);
+	@RequestMapping(value = "/execute", method = RequestMethod.POST)
+	public QueryResultDto execute(@RequestBody @Valid String query) {
+		Object o = interactor.interactWith(clientFactory.getClient(), query);
 		QueryResultDto queryResultDto = new QueryResultDto();
 		queryResultDto.setMessage("Executed successfully!");
 		queryResultDto.setResult(o);

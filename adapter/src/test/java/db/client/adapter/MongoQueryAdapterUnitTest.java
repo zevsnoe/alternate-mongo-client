@@ -13,4 +13,5 @@ public class MongoQueryAdapterUnitTest {
 	public void adoptFailedForInvalidQuery() {
 		new MongoQueryAdapter().adopt("some strange query");
 	}
+
 }

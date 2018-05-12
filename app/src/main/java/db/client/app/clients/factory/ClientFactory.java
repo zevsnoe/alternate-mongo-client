@@ -16,11 +16,7 @@ public class ClientFactory implements ClientFactoryInterface {
 	}
 
 	@Override
-	public Client getClient(String dbType) {
-		if (dbType.equals("mongo")) {
-			return mongoDBClient;
-		} else {
-			return mongoDBClient; //TODO: return degenerate client
-		}
+	public Client getClient() {
+		return mongoDBClient;
 	}
 }

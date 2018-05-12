@@ -1,5 +1,6 @@
 package db.client.adapter.mongo.converter;
 
+import db.client.adapter.contract.Converter;
 import db.client.adapter.mongo.bean.AdoptedStatement;
 import db.client.adapter.mongo.bean.InsertAdoptedStatement;
 import db.client.adapter.mongo.validator.InvalidSQLException;
@@ -7,6 +8,7 @@ import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.insert.Insert;
+import net.sf.jsqlparser.statement.select.Select;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.List;
 
 import static db.client.adapter.mongo.helper.ExpressionHelper.toFieldValue;
 
-public class InsertConverter {
+public class InsertConverter implements Converter<Insert> {
 
 	public AdoptedStatement convert(Insert statement) {
 		List columns = statement.getColumns();

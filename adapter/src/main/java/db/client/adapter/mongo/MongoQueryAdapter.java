@@ -10,11 +10,17 @@ import db.client.adapter.mongo.validator.InvalidSQLException;
 import db.client.adapter.mongo.validator.MongoSQLAdapterException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.StatementVisitor;
+import net.sf.jsqlparser.statement.create.table.CreateTable;
+import net.sf.jsqlparser.statement.delete.Delete;
 import net.sf.jsqlparser.statement.drop.Drop;
 import net.sf.jsqlparser.statement.insert.Insert;
+import net.sf.jsqlparser.statement.replace.Replace;
 import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.statement.truncate.Truncate;
 import net.sf.jsqlparser.statement.update.Update;
 import org.springframework.stereotype.Component;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.StringReader;
 
@@ -29,26 +35,53 @@ public class MongoQueryAdapter implements QueryAdapter {
 
 	public AdoptedStatement adopt(String query) {
 		Statement statement = parse(query);
-
-		if (statement instanceof Select) {
-			return selectConverter.convert((Select)statement);
-		} else if (statement instanceof Insert) {
-			return insertConverter.convert((Insert)statement);
-		} else if (statement instanceof Update) {
-			return updateConverter.convert((Update)statement);
-		} else if (statement instanceof Drop) {
-			return dropConverter.convert((Drop)statement);
+		MongoStatementVisitor statementVisitor = new MongoStatementVisitor();
+		try {
+			statement.accept(statementVisitor);
+		} catch (Exception e){
+			throw new MongoSQLAdapterException("Can't adopt due to internal error");
 		}
-		throw new InvalidSQLException(query);
+
+		return statementVisitor.statement;
 	}
 
-	Statement parse(String s) throws MongoSQLAdapterException {
+	private Statement parse(String s) throws MongoSQLAdapterException {
 		try {
 			return parser.parse(new StringReader(s.trim()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new InvalidSQLException(s);
 		}
+	}
+
+	//TODO: consider transactional aspect
+	private class MongoStatementVisitor implements StatementVisitor {
+		private AdoptedStatement statement = null;
+
+		@Override
+		synchronized public void visit(Select select) {
+			statement = selectConverter.convert(select);
+		}
+
+		@Override
+		synchronized public void visit(Update update) {
+			statement = updateConverter.convert(update);
+		}
+
+		@Override
+		synchronized public void visit(Insert insert) {
+			statement = insertConverter.convert(insert);
+		}
+
+		@Override
+		synchronized public void visit(Drop drop) {
+			statement = dropConverter.convert(drop);
+		}
+
+		public void visit(Delete delete) { throw new NotImplementedException(); }
+		public void visit(Replace replace) { throw new NotImplementedException(); }
+		public void visit(Truncate truncate) { throw new NotImplementedException(); }
+		public void visit(CreateTable createTable) { throw new NotImplementedException(); }
 	}
 
 }

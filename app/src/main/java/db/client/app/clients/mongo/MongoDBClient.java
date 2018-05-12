@@ -34,9 +34,9 @@ public class MongoDBClient implements Client {
 		db = mongoClient.getDB("mydb");
 	}
 
+	//TODO: refactor, use polymorphic dispatch
 	@Override
 	public Object execute(AdoptedStatement adoptedStatement) {
-		//TODO: use polymorphic dispatch
 		if (adoptedStatement instanceof SelectAdoptedStatement) {
 			return executeSelect((SelectAdoptedStatement)adoptedStatement);
 		} else if (adoptedStatement instanceof InsertAdoptedStatement) {
