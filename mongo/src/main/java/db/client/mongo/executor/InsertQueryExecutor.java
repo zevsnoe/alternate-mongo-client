@@ -2,14 +2,14 @@ package db.client.mongo.executor;
 
 import com.mongodb.WriteResult;
 import com.mongodb.client.MongoCollection;
-import db.client.contract.MongoQueryExecutor;
+import db.client.contract.mongo.QueryExecutor;
 import db.client.mongo.data.InsertAdoptedStatement;
 import javafx.util.Pair;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class InsertQueryExecutor implements MongoQueryExecutor<InsertAdoptedStatement> {
+public class InsertQueryExecutor implements QueryExecutor<InsertAdoptedStatement> {
 
 	@Override
 	public Object execute(InsertAdoptedStatement statement, MongoCollection collection) {

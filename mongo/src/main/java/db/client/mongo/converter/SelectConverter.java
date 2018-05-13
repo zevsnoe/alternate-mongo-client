@@ -1,6 +1,6 @@
 package db.client.mongo.converter;
 
-import db.client.contract.Converter;
+import db.client.contract.mongo.Converter;
 import db.client.mongo.data.AdoptedStatement;
 import db.client.mongo.data.SelectAdoptedStatement;
 import net.sf.jsqlparser.schema.Table;

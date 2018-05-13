@@ -1,7 +1,7 @@
 package db.client.mongo;
 
-import db.client.contract.MongoQueryAdoptedStatement;
-import db.client.contract.QueryAdapter;
+import db.client.contract.mongo.QueryAdoptedStatement;
+import db.client.contract.mongo.QueryAdapter;
 import db.client.mongo.converter.DropConverter;
 import db.client.mongo.converter.InsertConverter;
 import db.client.mongo.converter.SelectConverter;
@@ -33,7 +33,7 @@ public class MongoQueryAdapter implements QueryAdapter {
 	private final UpdateConverter updateConverter = new UpdateConverter();
 	private final DropConverter dropConverter = new DropConverter();
 
-	public MongoQueryAdoptedStatement adopt(String query) {
+	public QueryAdoptedStatement adopt(String query) {
 		Statement statement = parse(query);
 		MongoStatementVisitor statementVisitor = new MongoStatementVisitor();
 		try {
@@ -57,7 +57,7 @@ public class MongoQueryAdapter implements QueryAdapter {
 
 	//TODO: consider transactional aspect & extraction
 	private class MongoStatementVisitor implements StatementVisitor {
-		private MongoQueryAdoptedStatement statement = null;
+		private QueryAdoptedStatement statement = null;
 
 		@Override
 		public void visit(Select select) {

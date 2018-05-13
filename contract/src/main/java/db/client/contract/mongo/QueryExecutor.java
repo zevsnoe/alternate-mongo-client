@@ -1,8 +1,8 @@
-package db.client.contract;
+package db.client.contract.mongo;
 
 import com.mongodb.client.MongoCollection;
 
 @FunctionalInterface
-public interface MongoQueryExecutor<T extends MongoQueryAdoptedStatement> {
+public interface QueryExecutor<T extends QueryAdoptedStatement> {
 	Object execute(T statement, MongoCollection collection); //TODO: remove
 }

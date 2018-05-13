@@ -4,8 +4,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import db.client.contract.Client;
-import db.client.contract.MongoQueryAdoptedStatement;
-import db.client.contract.MongoQueryExecutor;
+import db.client.contract.mongo.QueryAdoptedStatement;
+import db.client.contract.mongo.QueryExecutor;
 import db.client.mongo.data.DropAdoptedStatement;
 import db.client.mongo.data.InsertAdoptedStatement;
 import db.client.mongo.data.SelectAdoptedStatement;
@@ -29,9 +29,6 @@ public class MongoDBClient implements Client {
 	private final MongoDBConfig mongoConfig;
 	private final MongoQueryAdapter adapter;
 
-	MongoClient mongoClient;
-	MongoDatabase database;
-
 	@Autowired
 	public MongoDBClient(DropQueryExecutor dropQueryExecutor,
 						 InsertQueryExecutor insertQueryExecutor,
@@ -47,6 +44,9 @@ public class MongoDBClient implements Client {
 		this.adapter = adapter;
 	}
 
+	private MongoClient mongoClient;
+	private MongoDatabase database;
+
 	@PostConstruct
 	public void init() {
 		mongoClient = new MongoClient(mongoConfig.getHost(), mongoConfig.getPort());
@@ -56,7 +56,7 @@ public class MongoDBClient implements Client {
 	//TODO: refactor, use polymorphic dispatch via pattern(visitor again - or mb go structural?)
 	@Override
 	public Object execute(String query) {
-		MongoQueryAdoptedStatement adoptedStatement = adapter.adopt(query);
+		QueryAdoptedStatement adoptedStatement = adapter.adopt(query);
 		if (adoptedStatement instanceof SelectAdoptedStatement) {
 			return executeVia(selectQueryExecutor, adoptedStatement);
 		} else if (adoptedStatement instanceof InsertAdoptedStatement) {
@@ -68,11 +68,11 @@ public class MongoDBClient implements Client {
 		} else throw new MongoSQLAdapterException("Undefined Statement");
 	}
 
-	private Object executeVia(MongoQueryExecutor queryExecutor, MongoQueryAdoptedStatement adoptedStatement) {
+	private Object executeVia(QueryExecutor queryExecutor, QueryAdoptedStatement adoptedStatement) {
 		return queryExecutor.execute(adoptedStatement, getCollection(adoptedStatement));
 	}
 
-	private MongoCollection getCollection(MongoQueryAdoptedStatement adoptedStatement) {
+	private MongoCollection getCollection(QueryAdoptedStatement adoptedStatement) {
 		return database.getCollection(adoptedStatement.getCollectionName());
 	}
 }

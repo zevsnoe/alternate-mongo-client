@@ -3,7 +3,7 @@ package db.client.mongo.executor;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import db.client.contract.MongoQueryExecutor;
+import db.client.contract.mongo.QueryExecutor;
 import db.client.mongo.data.SelectAdoptedStatement;
 import db.client.mongo.helper.WhereExpressionAdapter;
 import net.sf.jsqlparser.expression.Expression;
@@ -18,7 +18,7 @@ import static com.mongodb.client.model.Projections.fields;
 import static com.mongodb.client.model.Projections.include;
 
 @Repository
-public class SelectQueryExecutor implements MongoQueryExecutor<SelectAdoptedStatement> {
+public class SelectQueryExecutor implements QueryExecutor<SelectAdoptedStatement> {
 
 	@Override
 	public Object execute(SelectAdoptedStatement statement, MongoCollection collection) {

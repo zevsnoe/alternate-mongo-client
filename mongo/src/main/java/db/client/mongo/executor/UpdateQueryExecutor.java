@@ -2,7 +2,7 @@ package db.client.mongo.executor;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
-import db.client.contract.MongoQueryExecutor;
+import db.client.contract.mongo.QueryExecutor;
 import db.client.mongo.data.UpdateAdoptedStatement;
 import db.client.mongo.helper.WhereExpressionAdapter;
 import javafx.util.Pair;
@@ -17,7 +17,7 @@ import static com.mongodb.client.model.Updates.combine;
 import static com.mongodb.client.model.Updates.set;
 
 @Repository
-public class UpdateQueryExecutor implements MongoQueryExecutor<UpdateAdoptedStatement> {
+public class UpdateQueryExecutor implements QueryExecutor<UpdateAdoptedStatement> {
 
 	@Override
 	public Object execute(UpdateAdoptedStatement statement, MongoCollection collection) {
