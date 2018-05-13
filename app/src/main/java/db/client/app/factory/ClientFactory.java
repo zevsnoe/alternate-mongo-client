@@ -1,7 +1,7 @@
 package db.client.app.factory;
 
-import db.client.app.contract.Client;
-import db.client.app.contract.ClientFactoryInterface;
+import db.client.contract.Client;
+import db.client.contract.ClientFactoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

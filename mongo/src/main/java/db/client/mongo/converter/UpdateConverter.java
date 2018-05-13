@@ -1,6 +1,6 @@
 package db.client.mongo.converter;
 
-import db.client.app.contract.Converter;
+import db.client.contract.Converter;
 import db.client.mongo.data.AdoptedStatement;
 import db.client.mongo.data.UpdateAdoptedStatement;
 import javafx.util.Pair;

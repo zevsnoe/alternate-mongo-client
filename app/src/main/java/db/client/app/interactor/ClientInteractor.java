@@ -1,9 +1,9 @@
 package db.client.app.interactor;
 
-import db.client.app.contract.Client;
-import db.client.app.contract.Interactor;
-import db.client.app.contract.QueryAdapter;
 import db.client.app.interactor.validation.InteractionFailedError;
+import db.client.contract.Client;
+import db.client.contract.Interactor;
+import db.client.contract.QueryAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

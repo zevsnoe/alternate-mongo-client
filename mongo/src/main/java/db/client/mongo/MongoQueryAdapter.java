@@ -1,7 +1,7 @@
 package db.client.mongo;
 
-import db.client.app.contract.MongoQueryAdoptedStatement;
-import db.client.app.contract.QueryAdapter;
+import db.client.contract.MongoQueryAdoptedStatement;
+import db.client.contract.QueryAdapter;
 import db.client.mongo.converter.DropConverter;
 import db.client.mongo.converter.InsertConverter;
 import db.client.mongo.converter.SelectConverter;

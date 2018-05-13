@@ -2,8 +2,8 @@ package db.client.mongo.executor;
 
 import com.mongodb.WriteResult;
 import com.mongodb.client.MongoCollection;
-import db.client.app.contract.MongoQueryAdoptedStatement;
-import db.client.app.contract.MongoQueryExecutor;
+import db.client.contract.MongoQueryAdoptedStatement;
+import db.client.contract.MongoQueryExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository

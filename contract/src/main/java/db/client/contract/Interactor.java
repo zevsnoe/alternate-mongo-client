@@ -1,4 +1,4 @@
-package db.client.app.contract;
+package db.client.contract;
 
 @FunctionalInterface
 public interface Interactor {

@@ -1,6 +1,6 @@
 package db.client.mongo.data;
 
-import db.client.app.contract.MongoQueryAdoptedStatement;
+import db.client.contract.MongoQueryAdoptedStatement;
 
 public class AdoptedStatement implements MongoQueryAdoptedStatement {
 	private String collectionName;

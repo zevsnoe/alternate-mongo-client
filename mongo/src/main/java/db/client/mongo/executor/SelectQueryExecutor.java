@@ -3,7 +3,7 @@ package db.client.mongo.executor;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import db.client.app.contract.MongoQueryExecutor;
+import db.client.contract.MongoQueryExecutor;
 import db.client.mongo.data.SelectAdoptedStatement;
 import db.client.mongo.helper.WhereExpressionAdapter;
 import net.sf.jsqlparser.expression.Expression;
@@ -27,8 +27,13 @@ public class SelectQueryExecutor implements MongoQueryExecutor<SelectAdoptedStat
 		if (null != whereStatement) {
 			filter = WhereExpressionAdapter.adopt(whereStatement);
 		}
-		MongoCursor cursor = collection.find(filter).projection(fields(include(statement.getProjections()), excludeId())).iterator();
+		MongoCursor cursor = collection.find(filter).projection(getProjections(statement)).iterator();
 		return out(cursor);
+	}
+
+	private Bson getProjections(SelectAdoptedStatement statement) {
+		//TODO: include id case
+		return fields(include(statement.getProjections()), excludeId());
 	}
 
 	private List out(MongoCursor cursor) {

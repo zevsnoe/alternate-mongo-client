@@ -2,7 +2,7 @@ package db.client.mongo.executor;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
-import db.client.app.contract.MongoQueryExecutor;
+import db.client.contract.MongoQueryExecutor;
 import db.client.mongo.data.UpdateAdoptedStatement;
 import db.client.mongo.helper.WhereExpressionAdapter;
 import javafx.util.Pair;
