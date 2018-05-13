@@ -1,8 +1,5 @@
 package db.client.app.interactor;
 
-import com.mongodb.MongoException;
-import db.client.app.adapter.mongo.bean.AdoptedStatement;
-import db.client.app.adapter.mongo.validator.InvalidSQLException;
 import db.client.app.contract.Client;
 import db.client.app.contract.Interactor;
 import db.client.app.contract.QueryAdapter;
@@ -23,11 +20,9 @@ public class ClientInteractor implements Interactor {
 	@Override
 	public Object interactWith(Client client, String query) {
 		try {
-			AdoptedStatement adoptedStatement = adapter.adopt(query);
-			return client.execute(adoptedStatement);
-		} catch(InvalidSQLException e) {
-			throw new InteractionFailedError();
-		} catch (MongoException e) {
+			return client.execute(query);
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new InteractionFailedError();
 		}
 	}
