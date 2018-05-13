@@ -1,6 +1,6 @@
 dependencies {
+	compile 'net.sf.jsqlparser:jsqlparser:0.8.0'
 	compile 'org.springframework.boot:spring-boot:2.0.2.RELEASE'
 	compile 'org.mongodb:mongodb-driver:3.7.0'
 	compile 'org.springframework:spring-context:5.0.5.RELEASE'
-	compile project(":adapter")
 }

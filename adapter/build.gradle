@@ -1,4 +1,0 @@
-dependencies {
-	compile 'org.springframework:spring-context:5.0.5.RELEASE'
-	compile 'net.sf.jsqlparser:jsqlparser:0.8.0' //TODO: consider compile 'com.github.jsqlparser:jsqlparser:1.2' instead
-}

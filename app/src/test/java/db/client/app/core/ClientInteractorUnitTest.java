@@ -1,12 +1,13 @@
 package db.client.app.core;
 
-import db.client.adapter.mongo.MongoQueryAdapter;
 import db.client.app.MongoConfig;
-import db.client.app.clients.executor.DropQueryExecutor;
-import db.client.app.clients.executor.InsertQueryExecutor;
-import db.client.app.clients.executor.SelectQueryExecutor;
-import db.client.app.clients.executor.UpdateQueryExecutor;
+import db.client.app.adapter.mongo.MongoQueryAdapter;
+import db.client.app.clients.mongo.executor.DropQueryExecutor;
+import db.client.app.clients.mongo.executor.InsertQueryExecutor;
+import db.client.app.clients.mongo.executor.SelectQueryExecutor;
+import db.client.app.clients.mongo.executor.UpdateQueryExecutor;
 import db.client.app.clients.mongo.MongoDBClient;
+import db.client.app.interactor.ClientInteractor;
 import db.client.app.interactor.validation.InteractionFailedError;
 import org.junit.Before;
 import org.junit.Test;
