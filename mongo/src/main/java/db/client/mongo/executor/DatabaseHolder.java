@@ -4,7 +4,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class DatabaseHolder {
+public abstract class DatabaseHolder {
 
 	private MongoDatabase database;
 

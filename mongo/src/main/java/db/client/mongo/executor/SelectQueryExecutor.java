@@ -27,8 +27,19 @@ public class SelectQueryExecutor extends DatabaseHolder implements QueryExecutor
 	}
 
 	private Bson getProjections(SelectAdoptedStatement statement) {
-		//TODO: include id case
+		if (statement.hasIds()) {
+			return projectionsWithIds(statement);
+		} else {
+			return projections(statement);
+		}
+	}
+
+	private Bson projections(SelectAdoptedStatement statement) {
 		return fields(include(statement.getProjections()), excludeId());
+	}
+
+	private Bson projectionsWithIds(SelectAdoptedStatement statement) {
+		return fields(include(statement.getProjections()));
 	}
 
 	private List out(MongoCursor cursor) {

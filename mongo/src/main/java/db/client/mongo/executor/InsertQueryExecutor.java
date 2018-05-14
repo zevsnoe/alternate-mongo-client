@@ -14,7 +14,7 @@ public class InsertQueryExecutor extends DatabaseHolder implements QueryExecutor
 	@Override
 	public Object execute(InsertAdoptedStatement statement) {
 		MongoCollection<Document> collection = getCollection(statement.getCollectionName());
-		collection.insertOne(insertable(statement));
+		collection.insertOne(insertable(statement)); //TODO: parser can't parse multiple inserts for some reason
 		return new WriteResult(0, false, null);
 	}
 
