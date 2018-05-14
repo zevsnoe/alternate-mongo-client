@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldName;
+import static db.client.mongo.helper.WhereExpressionAdapter.adopt;
 
 public class SelectConverter implements Converter<Select> {
 
@@ -21,7 +22,7 @@ public class SelectConverter implements Converter<Select> {
 		PlainSelect plainSelect = validateAndGetSelectBody(statement);
 		return new SelectAdoptedStatement()
 				.setProjections(fromFieldsOf(plainSelect))
-				.setWhereStatement(plainSelect.getWhere())
+				.setWhereStatement(adopt(plainSelect.getWhere()))
 				.setCollectionName(fromTableName(plainSelect));
 	}
 

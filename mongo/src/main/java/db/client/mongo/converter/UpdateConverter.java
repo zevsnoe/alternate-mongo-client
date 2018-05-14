@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldValue;
+import static db.client.mongo.helper.WhereExpressionAdapter.*;
 
 public class UpdateConverter implements Converter<Update> {
 
 	public AdoptedStatement convert(Update statement) {
 		return new UpdateAdoptedStatement()
 				.setValues(convertFromValuesOf(statement))
-				.setWhereStatement(statement.getWhere())
+				.setWhereStatement(adopt(statement.getWhere()))
 				.setCollectionName(convertFromTableName(statement));
 	}
 

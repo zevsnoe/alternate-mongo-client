@@ -1,16 +1,16 @@
 package db.client.mongo.data;
 
-import net.sf.jsqlparser.expression.Expression;
+import com.mongodb.BasicDBObject;
 
 public class WhereAdoptedStatement extends AdoptedStatement {
 
-	private Expression whereStatement;
+	private BasicDBObject whereStatement;
 
-	public Expression getWhereStatement() {
+	public BasicDBObject getWhereStatement() {
 		return whereStatement;
 	}
 
-	public WhereAdoptedStatement setWhereStatement(Expression whereStatement) {
+	public WhereAdoptedStatement setWhereStatement(BasicDBObject whereStatement) {
 		this.whereStatement = whereStatement;
 		return this;
 	}

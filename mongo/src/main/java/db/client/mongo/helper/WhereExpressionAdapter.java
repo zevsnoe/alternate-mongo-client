@@ -17,6 +17,7 @@ import net.sf.jsqlparser.expression.operators.relational.MinorThanEquals;
 public class WhereExpressionAdapter {
 
 	public static BasicDBObject adopt(Expression expression) {
+		if (null == expression) return new BasicDBObject();
 		if (expression instanceof Parenthesis) {
 			expression = ((Parenthesis) expression).getExpression();
 		}
