@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldName;
-import static db.client.mongo.helper.WhereExpressionAdapter.adopt;
+import static db.client.mongo.converter.helper.WhereExpressionConverter.adopt;
 
 public class SelectConverter implements Converter<Select> {
 

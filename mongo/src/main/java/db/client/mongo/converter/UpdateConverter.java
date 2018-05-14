@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldValue;
-import static db.client.mongo.helper.WhereExpressionAdapter.*;
+import static db.client.mongo.converter.helper.WhereExpressionConverter.*;
 
 public class UpdateConverter implements Converter<Update> {
 

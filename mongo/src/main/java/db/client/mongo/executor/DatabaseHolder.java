@@ -1,5 +1,6 @@
 package db.client.mongo.executor;
 
+import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -13,6 +14,12 @@ public abstract class DatabaseHolder {
 	}
 
 	protected MongoCollection<Document> getCollection(String collectionName) {
-		return database.getCollection(collectionName);
+		try {
+			return database.getCollection(collectionName);
+		} catch (IllegalArgumentException exception) {
+			throw new MongoClientException("Collection name is invalid");
+		} catch (Exception exception) {
+			throw new MongoClientException("Database not set");
+		}
 	}
 }

@@ -1,8 +1,9 @@
-package db.client.mongo.helper;
+package db.client.mongo.converter.helper;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import db.client.mongo.helper.ExpressionHelper;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.Parenthesis;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
@@ -13,8 +14,8 @@ import net.sf.jsqlparser.expression.operators.relational.GreaterThanEquals;
 import net.sf.jsqlparser.expression.operators.relational.MinorThan;
 import net.sf.jsqlparser.expression.operators.relational.MinorThanEquals;
 
-//TODO: refactor with visitor
-public class WhereExpressionAdapter {
+//TODO: refactor with visitor or other way of polymorphic dispatch
+public class WhereExpressionConverter {
 
 	public static BasicDBObject adopt(Expression expression) {
 		if (null == expression) return new BasicDBObject();

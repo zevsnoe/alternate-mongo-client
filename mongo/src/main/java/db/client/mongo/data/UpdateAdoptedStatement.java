@@ -5,7 +5,7 @@ import javafx.util.Pair;
 import java.util.List;
 
 public class UpdateAdoptedStatement extends WhereAdoptedStatement {
-	private List<Pair<String, Object>> values;
+	private List<Pair<String, Object>> values; //TODO: Collection<list<pair..>>
 
 	public List<Pair<String, Object>> getValues() {
 		return values;
