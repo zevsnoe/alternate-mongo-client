@@ -7,6 +7,7 @@ import db.client.contract.mongo.QueryExecutor;
 import db.client.mongo.data.SelectAdoptedStatement;
 import db.client.mongo.helper.WhereExpressionAdapter;
 import net.sf.jsqlparser.expression.Expression;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.stereotype.Repository;
 
@@ -18,10 +19,11 @@ import static com.mongodb.client.model.Projections.fields;
 import static com.mongodb.client.model.Projections.include;
 
 @Repository
-public class SelectQueryExecutor implements QueryExecutor<SelectAdoptedStatement> {
+public class SelectQueryExecutor extends DatabaseHolder implements QueryExecutor<SelectAdoptedStatement> {
 
 	@Override
-	public Object execute(SelectAdoptedStatement statement, MongoCollection collection) {
+	public Object execute(SelectAdoptedStatement statement) {
+		MongoCollection<Document> collection = getCollection(statement.getCollectionName());
 		Expression whereStatement = statement.getWhereStatement();
 		Bson filter = new BasicDBObject();
 		if (null != whereStatement) {

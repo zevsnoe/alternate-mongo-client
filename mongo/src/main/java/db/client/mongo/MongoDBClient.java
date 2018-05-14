@@ -1,7 +1,6 @@
 package db.client.mongo;
 
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import db.client.contract.Client;
 import db.client.contract.mongo.QueryAdoptedStatement;
@@ -44,13 +43,14 @@ public class MongoDBClient implements Client {
 		this.adapter = adapter;
 	}
 
-	private MongoClient mongoClient;
-	private MongoDatabase database;
-
 	@PostConstruct
 	public void init() {
-		mongoClient = new MongoClient(mongoConfig.getHost(), mongoConfig.getPort());
-		database = mongoClient.getDatabase(mongoConfig.getName());
+		MongoClient mongoClient = new MongoClient(mongoConfig.getHost(), mongoConfig.getPort());
+		MongoDatabase database = mongoClient.getDatabase(mongoConfig.getName());
+		dropQueryExecutor.setDatabase(database);
+		insertQueryExecutor.setDatabase(database);
+		updateQueryExecutor.setDatabase(database);
+		selectQueryExecutor.setDatabase(database);
 	}
 
 	//TODO: refactor, use polymorphic dispatch via pattern(visitor again - or mb go structural?)
@@ -69,10 +69,7 @@ public class MongoDBClient implements Client {
 	}
 
 	private Object executeVia(QueryExecutor queryExecutor, QueryAdoptedStatement adoptedStatement) {
-		return queryExecutor.execute(adoptedStatement, getCollection(adoptedStatement));
+		return queryExecutor.execute(adoptedStatement);
 	}
 
-	private MongoCollection getCollection(QueryAdoptedStatement adoptedStatement) {
-		return database.getCollection(adoptedStatement.getCollectionName());
-	}
 }

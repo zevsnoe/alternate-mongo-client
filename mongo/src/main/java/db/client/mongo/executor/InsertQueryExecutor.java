@@ -9,10 +9,11 @@ import org.bson.Document;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class InsertQueryExecutor implements QueryExecutor<InsertAdoptedStatement> {
+public class InsertQueryExecutor extends DatabaseHolder implements QueryExecutor<InsertAdoptedStatement> {
 
 	@Override
-	public Object execute(InsertAdoptedStatement statement, MongoCollection collection) {
+	public Object execute(InsertAdoptedStatement statement) {
+		MongoCollection<Document> collection = getCollection(statement.getCollectionName());
 		collection.insertOne(insertable(statement));
 		return new WriteResult(0, false, null);
 	}

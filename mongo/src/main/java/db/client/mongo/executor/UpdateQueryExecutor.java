@@ -7,6 +7,7 @@ import db.client.mongo.data.UpdateAdoptedStatement;
 import db.client.mongo.helper.WhereExpressionAdapter;
 import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.stereotype.Repository;
 
@@ -17,10 +18,11 @@ import static com.mongodb.client.model.Updates.combine;
 import static com.mongodb.client.model.Updates.set;
 
 @Repository
-public class UpdateQueryExecutor implements QueryExecutor<UpdateAdoptedStatement> {
+public class UpdateQueryExecutor extends DatabaseHolder implements QueryExecutor<UpdateAdoptedStatement> {
 
 	@Override
-	public Object execute(UpdateAdoptedStatement statement, MongoCollection collection) {
+	public Object execute(UpdateAdoptedStatement statement) {
+		MongoCollection<Document> collection = getCollection(statement.getCollectionName());
 		Expression whereStatement = statement.getWhereStatement();
 		Bson filter = new BasicDBObject();
 		if (null != whereStatement) {
