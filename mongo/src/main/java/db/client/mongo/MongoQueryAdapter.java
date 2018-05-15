@@ -1,7 +1,7 @@
 package db.client.mongo;
 
-import db.client.contract.mongo.QueryAdoptedStatement;
 import db.client.contract.mongo.QueryAdapter;
+import db.client.contract.mongo.QueryAdoptedStatement;
 import db.client.mongo.converter.DropConverter;
 import db.client.mongo.converter.InsertConverter;
 import db.client.mongo.converter.SelectConverter;
@@ -20,7 +20,6 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.truncate.Truncate;
 import net.sf.jsqlparser.statement.update.Update;
 import org.springframework.stereotype.Component;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.StringReader;
 
@@ -79,10 +78,10 @@ public class MongoQueryAdapter implements QueryAdapter {
 			statement = dropConverter.convert(drop);
 		}
 
-		public void visit(Delete delete) { throw new NotImplementedException(); }
-		public void visit(Replace replace) { throw new NotImplementedException(); }
-		public void visit(Truncate truncate) { throw new NotImplementedException(); }
-		public void visit(CreateTable createTable) { throw new NotImplementedException(); }
+		public void visit(Delete delete) { throw new UnsupportedOperationException(); }
+		public void visit(Replace replace) { throw new UnsupportedOperationException(); }
+		public void visit(Truncate truncate) { throw new UnsupportedOperationException(); }
+		public void visit(CreateTable createTable) { throw new UnsupportedOperationException(); }
 	}
 
 }
