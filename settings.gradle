@@ -1,5 +1,6 @@
 rootProject.name = 'alternate_db_client'
 include 'api'
+include 'console'
 include 'app'
 include 'mongo'
 include 'contract'
