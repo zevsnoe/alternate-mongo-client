@@ -4,6 +4,7 @@ import db.client.mongo.adapter.contract.Adapter;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.adapter.data.UpdateManyAdoptedStatement;
+import db.client.mongo.adapter.where.WhereStatementAdapter;
 import db.client.mongo.converter.dto.UpdateConvertedStatement;
 import db.client.mongo.validator.MongoClientException;
 import javafx.util.Pair;

@@ -7,6 +7,7 @@ import db.client.mongo.adapter.contract.QueryAdapter;
 import db.client.mongo.converter.contract.QueryConverter;
 import db.client.mongo.gateway.contract.Gateway;
 import db.client.mongo.gateway.dto.QueryExecutionResult;
+import db.client.mongo.validator.InvalidSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,8 @@ public class MongoDBClient implements Client {
 			QueryConvertedStatement convertedStatement = converter.convert(query);
 			AdoptedStatement adoptedStatement = adapter.adopt(convertedStatement);
 			return gateway.execute(adoptedStatement);
+		} catch (InvalidSQLException e) {
+			return QueryExecutionResult.from(e);
 		} catch (UnsupportedOperationException e) {
 			return QueryExecutionResult.from(e);
 		}

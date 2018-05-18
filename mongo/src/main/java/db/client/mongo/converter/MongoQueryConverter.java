@@ -4,7 +4,7 @@ import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.converter.contract.ConverterService;
 import db.client.mongo.converter.contract.QueryConverter;
 import db.client.mongo.validator.InvalidSQLException;
-import db.client.mongo.validator.MongoSQLAdapterException;
+import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +25,15 @@ public class MongoQueryConverter implements QueryConverter {
 		this.parser = new CCJSqlParserManager();
 	}
 
-	public QueryConvertedStatement convert(String query) {
+	public QueryConvertedStatement convert(String query) throws InvalidSQLException{
 		Statement statement = parse(query);
 		return sevice.convert(statement);
 	}
 
-	private Statement parse(String s) throws MongoSQLAdapterException {
+	private Statement parse(String s) throws InvalidSQLException {
 		try {
 			return parser.parse(new StringReader(s.trim()));
-		} catch (Exception e) {
+		} catch (JSQLParserException e) {
 			e.printStackTrace();
 			throw new InvalidSQLException(s);
 		}

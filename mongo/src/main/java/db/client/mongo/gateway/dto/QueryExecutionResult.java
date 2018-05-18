@@ -3,6 +3,7 @@ package db.client.mongo.gateway.dto;
 import com.mongodb.WriteResult;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.UpdateResult;
+import db.client.mongo.validator.InvalidSQLException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,10 @@ public class QueryExecutionResult {
 	}
 
 	public static Object from(UnsupportedOperationException e) {
+		return e.getMessage();
+	}
+
+	public static Object from(InvalidSQLException e) {
 		return e.getMessage();
 	}
 }

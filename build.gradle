@@ -20,20 +20,13 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    // configuration that holds jars to include in the jar
-    extraLibs
-}
-
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-integration')
     runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    extraLibs project(':console')
-    extraLibs project(':api')
-
-    configurations.compile.extendsFrom(configurations.extraLibs)
+    compile project(':api')
+    compile project(':console')
 }
 
 subprojects {
@@ -55,10 +48,4 @@ subprojects {
 
 bootRun {
     mainClassName = 'db.client.main.Application'
-}
-
-jar {
-    from {
-        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
-    }
 }
