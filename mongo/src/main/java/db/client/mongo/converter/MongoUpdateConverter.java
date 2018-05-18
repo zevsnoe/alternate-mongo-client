@@ -1,24 +1,29 @@
 package db.client.mongo.converter;
 
-import db.client.mongo.converter.contract.Converter;
+import db.client.mongo.converter.contract.UpdateConverter;
 import db.client.mongo.converter.dto.ConvertedStatement;
 import db.client.mongo.converter.dto.UpdateConvertedStatement;
 import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.update.Update;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldValue;
 
-public class UpdateConverter implements Converter<Update> {
+@Component
+public class MongoUpdateConverter implements UpdateConverter {
 
-	public ConvertedStatement convert(Update statement) {
+	public ConvertedStatement convert(Statement statement) {
+		Update update = (Update) statement;
+
 		return new UpdateConvertedStatement()
-				.setValues(convertFromValuesOf(statement))
-				.setWhereStatement(statement.getWhere())
-				.setCollectionName(convertFromTableName(statement));
+				.setValues(convertFromValuesOf(update))
+				.setWhereStatement(update.getWhere())
+				.setCollectionName(convertFromTableName(update));
 	}
 
 	private List<Pair<String, Object>> convertFromValuesOf(Update statement) {

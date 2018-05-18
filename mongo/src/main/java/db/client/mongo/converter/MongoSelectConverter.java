@@ -1,24 +1,29 @@
 package db.client.mongo.converter;
 
-import db.client.mongo.converter.contract.Converter;
+import db.client.mongo.converter.contract.SelectConverter;
 import db.client.mongo.converter.dto.ConvertedStatement;
 import db.client.mongo.converter.dto.SelectConvertedStatement;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.AllColumns;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import net.sf.jsqlparser.statement.select.SelectItem;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldName;
 
-public class SelectConverter implements Converter<Select> {
+@Service
+public class MongoSelectConverter implements SelectConverter {
 
-	public ConvertedStatement convert(Select statement) {
-		PlainSelect plainSelect = validateAndGetSelectBody(statement);
+	@Override
+	public ConvertedStatement convert(Statement statement) {
+		Select select = (Select)statement;
+		PlainSelect plainSelect = validateAndGetSelectBody(select);
 		return new SelectConvertedStatement()
 				.setProjections(fromFieldsOf(plainSelect))
 				.setWhereStatement(plainSelect.getWhere())

@@ -2,21 +2,21 @@ package db.client.mongo.gateway;
 
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.gateway.contract.Gateway;
-import db.client.mongo.gateway.contract.MongoDrop;
+import db.client.mongo.gateway.contract.MongoDropGateway;
 import db.client.mongo.gateway.contract.MongoInsertGateway;
 import db.client.mongo.gateway.contract.MongoSelectGateway;
 import db.client.mongo.gateway.contract.MongoUpdateGateway;
 import db.client.mongo.validator.MongoSQLAdapterException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 public class MongoGateway implements Gateway {
 
 	private final MongoSelectGateway selectGateway;
 	private final MongoInsertGateway insertGateway;
 	private final MongoUpdateGateway updateGateway;
-	private final MongoDrop dropGateway;
+	private final MongoDropGateway dropGateway;
 
 	@Autowired
 	public MongoGateway(MongoSelectGateway selectGateway,

@@ -1,6 +1,6 @@
 package db.client.mongo.converter;
 
-import db.client.mongo.converter.contract.Converter;
+import db.client.mongo.converter.contract.InsertConverter;
 import db.client.mongo.converter.dto.ConvertedStatement;
 import db.client.mongo.converter.dto.InsertConvertedStatement;
 import db.client.mongo.helper.ExpressionHelper;
@@ -8,21 +8,27 @@ import db.client.mongo.validator.InvalidSQLException;
 import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
+import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.insert.Insert;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InsertConverter implements Converter<Insert> {
+@Service
+public class MongoInsertConverter implements InsertConverter {
 
-	public ConvertedStatement convert(Insert statement) {
-		List columns = statement.getColumns();
-		validateColumns(statement, columns);
+	@Override
+	public ConvertedStatement convert(Statement statement) {
+		Insert insertStatemnent = (Insert) statement;
+		//TODO: check instanceof
+		List columns = insertStatemnent.getColumns();
+		validateColumns(insertStatemnent, columns);
 
 		return new InsertConvertedStatement()
-				.setValues(fromValuesOf(statement, columns))
-				.setCollectionName(fromTableName(statement));
+				.setValues(fromValuesOf(insertStatemnent, columns))
+				.setCollectionName(fromTableName(insertStatemnent));
 	}
 
 	private void validateColumns(Insert statement, List columns) {
