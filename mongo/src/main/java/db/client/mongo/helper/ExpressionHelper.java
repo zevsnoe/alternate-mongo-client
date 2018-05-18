@@ -31,6 +31,6 @@ public class ExpressionHelper {
 		else if (e instanceof JdbcParameter)
 			throw new UnsupportedOperationException("JDBC params not supported");
 
-		throw new UnsupportedOperationException("Unknown type of [" + e + "] " + e.getClass().getName() + " - can't convert to literal");
+		throw new UnsupportedOperationException("Unknown type of [" + e + "] " + e.getClass().getName() + " - can't converter to literal");
 	}
 }

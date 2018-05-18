@@ -1,8 +1,8 @@
 package db.client.app.interactor;
 
 import db.client.app.interactor.validation.InteractionFailedError;
-import db.client.contract.Client;
-import db.client.contract.Interactor;
+import db.client.contract.client.Client;
+import db.client.contract.client.Interactor;
 import org.springframework.stereotype.Service;
 
 @Service

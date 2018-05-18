@@ -1,8 +1,8 @@
 package db.client.mongo.converter;
 
-import db.client.contract.mongo.Converter;
-import db.client.mongo.data.AdoptedStatement;
-import db.client.mongo.data.UpdateAdoptedStatement;
+import db.client.mongo.converter.contract.Converter;
+import db.client.mongo.converter.dto.ConvertedStatement;
+import db.client.mongo.converter.dto.UpdateConvertedStatement;
 import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.statement.update.Update;
@@ -11,14 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldValue;
-import static db.client.mongo.converter.helper.WhereExpressionConverter.*;
 
 public class UpdateConverter implements Converter<Update> {
 
-	public AdoptedStatement convert(Update statement) {
-		return new UpdateAdoptedStatement()
+	public ConvertedStatement convert(Update statement) {
+		return new UpdateConvertedStatement()
 				.setValues(convertFromValuesOf(statement))
-				.setWhereStatement(adopt(statement.getWhere()))
+				.setWhereStatement(statement.getWhere())
 				.setCollectionName(convertFromTableName(statement));
 	}
 

@@ -1,8 +1,8 @@
 package db.client.mongo.converter;
 
-import db.client.contract.mongo.Converter;
-import db.client.mongo.data.AdoptedStatement;
-import db.client.mongo.data.InsertAdoptedStatement;
+import db.client.mongo.converter.contract.Converter;
+import db.client.mongo.converter.dto.ConvertedStatement;
+import db.client.mongo.converter.dto.InsertConvertedStatement;
 import db.client.mongo.helper.ExpressionHelper;
 import db.client.mongo.validator.InvalidSQLException;
 import javafx.util.Pair;
@@ -16,11 +16,11 @@ import java.util.List;
 
 public class InsertConverter implements Converter<Insert> {
 
-	public AdoptedStatement convert(Insert statement) {
+	public ConvertedStatement convert(Insert statement) {
 		List columns = statement.getColumns();
 		validateColumns(statement, columns);
 
-		return new InsertAdoptedStatement()
+		return new InsertConvertedStatement()
 				.setValues(fromValuesOf(statement, columns))
 				.setCollectionName(fromTableName(statement));
 	}

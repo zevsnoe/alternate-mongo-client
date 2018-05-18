@@ -1,9 +1,8 @@
 package db.client.console;
 
-import db.client.contract.Client;
-import db.client.contract.ClientFactoryInterface;
-import db.client.contract.Interactor;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import db.client.contract.client.Client;
+import db.client.contract.client.ClientFactoryInterface;
+import db.client.contract.client.Interactor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;

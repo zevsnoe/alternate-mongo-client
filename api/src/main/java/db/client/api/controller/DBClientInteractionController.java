@@ -1,8 +1,8 @@
 package db.client.api.controller;
 
 import db.client.api.dto.QueryResultDto;
-import db.client.contract.ClientFactoryInterface;
-import db.client.contract.Interactor;
+import db.client.contract.client.ClientFactoryInterface;
+import db.client.contract.client.Interactor;
 import db.client.app.interactor.ClientInteractor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,7 +45,6 @@ public class DBClientInteractionController {
 	public QueryResultDto execute(@RequestBody @Valid String query) {
 		Object o = interactor.interactWith(clientFactory.getClient(), query);
 		QueryResultDto queryResultDto = new QueryResultDto();
-		queryResultDto.setMessage("Executed successfully!");
 		queryResultDto.setResult(o);
 		return queryResultDto;
 	}

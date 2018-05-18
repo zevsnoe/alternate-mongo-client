@@ -1,8 +1,8 @@
 package db.client.mongo.converter;
 
-import db.client.contract.mongo.Converter;
-import db.client.mongo.data.AdoptedStatement;
-import db.client.mongo.data.SelectAdoptedStatement;
+import db.client.mongo.converter.contract.Converter;
+import db.client.mongo.converter.dto.ConvertedStatement;
+import db.client.mongo.converter.dto.SelectConvertedStatement;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.AllColumns;
 import net.sf.jsqlparser.statement.select.PlainSelect;
@@ -14,15 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static db.client.mongo.helper.ExpressionHelper.toFieldName;
-import static db.client.mongo.converter.helper.WhereExpressionConverter.adopt;
 
 public class SelectConverter implements Converter<Select> {
 
-	public AdoptedStatement convert(Select statement) {
+	public ConvertedStatement convert(Select statement) {
 		PlainSelect plainSelect = validateAndGetSelectBody(statement);
-		return new SelectAdoptedStatement()
+		return new SelectConvertedStatement()
 				.setProjections(fromFieldsOf(plainSelect))
-				.setWhereStatement(adopt(plainSelect.getWhere()))
+				.setWhereStatement(plainSelect.getWhere())
 				.setCollectionName(fromTableName(plainSelect));
 	}
 
