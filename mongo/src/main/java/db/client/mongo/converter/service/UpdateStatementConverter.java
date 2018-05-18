@@ -1,4 +1,4 @@
-package db.client.mongo.converter;
+package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.UpdateConverter;
 import db.client.mongo.converter.dto.ConvertedStatement;
@@ -15,7 +15,7 @@ import java.util.List;
 import static db.client.mongo.helper.ExpressionHelper.toFieldValue;
 
 @Component
-public class MongoUpdateConverter implements UpdateConverter {
+public class UpdateStatementConverter implements UpdateConverter {
 
 	public ConvertedStatement convert(Statement statement) {
 		Update update = (Update) statement;

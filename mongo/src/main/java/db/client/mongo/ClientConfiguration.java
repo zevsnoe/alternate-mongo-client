@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = {"db.client.mongo"})
-public class MongoApplication {
+public class ClientConfiguration {
 }

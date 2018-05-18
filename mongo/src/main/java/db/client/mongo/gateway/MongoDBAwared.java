@@ -4,19 +4,19 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import db.client.mongo.MongoDBConfig;
+import db.client.mongo.DBConfig;
 import db.client.mongo.gateway.contract.GatewayClient;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
-public class MongoGatewayClient implements GatewayClient {
+@Component
+public class MongoDBAwared implements GatewayClient {
 
 	private MongoDatabase database;
 
 	@Autowired
-	public MongoGatewayClient(MongoDBConfig config) {
+	public MongoDBAwared(DBConfig config) {
 		MongoClient mongoClient = new MongoClient(config.getHost(), config.getPort());
 		this.database = mongoClient.getDatabase(config.getName());
 	}

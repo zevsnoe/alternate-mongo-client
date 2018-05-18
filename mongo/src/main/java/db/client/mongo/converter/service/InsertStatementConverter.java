@@ -1,4 +1,4 @@
-package db.client.mongo.converter;
+package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.InsertConverter;
 import db.client.mongo.converter.dto.ConvertedStatement;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MongoInsertConverter implements InsertConverter {
+public class InsertStatementConverter implements InsertConverter {
 
 	@Override
 	public ConvertedStatement convert(Statement statement) {

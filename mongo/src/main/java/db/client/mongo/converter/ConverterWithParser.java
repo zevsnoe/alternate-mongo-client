@@ -13,14 +13,13 @@ import org.springframework.stereotype.Component;
 import java.io.StringReader;
 
 @Component
-public class MongoQueryConverter implements QueryConverter {
+public class ConverterWithParser implements QueryConverter {
 
 	private final CCJSqlParserManager parser;
-
 	private final ConverterService sevice;
 
 	@Autowired
-	public MongoQueryConverter(ConverterService sevice ) {
+	public ConverterWithParser(ConverterService sevice ) {
 		this.sevice = sevice;
 		this.parser = new CCJSqlParserManager();
 	}

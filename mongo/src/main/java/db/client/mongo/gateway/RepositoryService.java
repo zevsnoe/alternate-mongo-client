@@ -2,33 +2,32 @@ package db.client.mongo.gateway;
 
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.gateway.contract.Gateway;
-import db.client.mongo.gateway.contract.MongoDropGateway;
-import db.client.mongo.gateway.contract.MongoInsertGateway;
-import db.client.mongo.gateway.contract.MongoSelectGateway;
-import db.client.mongo.gateway.contract.MongoUpdateGateway;
+import db.client.mongo.gateway.contract.DropGateway;
+import db.client.mongo.gateway.contract.InsertGateway;
+import db.client.mongo.gateway.contract.SelectGateway;
+import db.client.mongo.gateway.contract.UpdateGateway;
 import db.client.mongo.validator.MongoSQLAdapterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MongoGateway implements Gateway {
+public class RepositoryService implements Gateway {
 
-	private final MongoSelectGateway selectGateway;
-	private final MongoInsertGateway insertGateway;
-	private final MongoUpdateGateway updateGateway;
-	private final MongoDropGateway dropGateway;
+	private final SelectGateway selectGateway;
+	private final InsertGateway insertGateway;
+	private final UpdateGateway updateGateway;
+	private final DropGateway dropGateway;
 
 	@Autowired
-	public MongoGateway(MongoSelectGateway selectGateway,
-						MongoInsertGateway insertGateway,
-						MongoUpdateGateway updateGateway,
-						MongoDropGateway dropGateway) {
+	public RepositoryService(SelectGateway selectGateway,
+							 InsertGateway insertGateway,
+							 UpdateGateway updateGateway,
+							 DropGateway dropGateway) {
 		this.selectGateway = selectGateway;
 		this.insertGateway = insertGateway;
 		this.updateGateway = updateGateway;
 		this.dropGateway = dropGateway;
 	}
-
 
 	@Override
 	public Object execute(AdoptedStatement adoptedStatement) {

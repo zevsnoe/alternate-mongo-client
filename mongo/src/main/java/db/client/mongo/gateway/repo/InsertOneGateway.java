@@ -1,22 +1,22 @@
-package db.client.mongo.gateway;
+package db.client.mongo.gateway.repo;
 
 import com.mongodb.WriteResult;
 import com.mongodb.client.MongoCollection;
 import db.client.contract.mongo.AdoptedStatement;
-import db.client.mongo.adapter.data.InsertSingleAdoptedStatement;
+import db.client.mongo.adapter.dto.InsertSingleAdoptedStatement;
 import db.client.mongo.gateway.contract.GatewayClient;
-import db.client.mongo.gateway.contract.MongoInsertGateway;
+import db.client.mongo.gateway.contract.InsertGateway;
 import db.client.mongo.gateway.dto.QueryExecutionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MongoInsertOneGateway implements MongoInsertGateway {
+public class InsertOneGateway implements InsertGateway {
 
 	private final GatewayClient client;
 
 	@Autowired
-	public MongoInsertOneGateway(GatewayClient client) {
+	public InsertOneGateway(GatewayClient client) {
 		this.client = client;
 	}
 

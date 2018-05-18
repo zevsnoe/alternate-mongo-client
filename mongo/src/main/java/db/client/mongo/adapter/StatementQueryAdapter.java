@@ -8,7 +8,7 @@ import db.client.mongo.validator.MongoSQLAdapterException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MongoQueryAdapter implements QueryAdapter {
+public class StatementQueryAdapter implements QueryAdapter {
 
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement convertedStatement) {

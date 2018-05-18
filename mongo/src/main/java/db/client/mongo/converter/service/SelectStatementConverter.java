@@ -1,4 +1,4 @@
-package db.client.mongo.converter;
+package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.SelectConverter;
 import db.client.mongo.converter.dto.ConvertedStatement;
@@ -18,12 +18,14 @@ import java.util.List;
 import static db.client.mongo.helper.ExpressionHelper.toFieldName;
 
 @Service
-public class MongoSelectConverter implements SelectConverter {
+//TODO: refactor
+public class SelectStatementConverter implements SelectConverter {
 
 	@Override
 	public ConvertedStatement convert(Statement statement) {
 		Select select = (Select)statement;
 		PlainSelect plainSelect = validateAndGetSelectBody(select);
+
 		return new SelectConvertedStatement()
 				.setProjections(fromFieldsOf(plainSelect))
 				.setWhereStatement(plainSelect.getWhere())

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "db")
 //TODO: pass from main
-public class MongoDBConfig {
+public class DBConfig {
 	private String name;
 	private String host;
 	private Integer port;

@@ -1,4 +1,4 @@
-package db.client.mongo.converter;
+package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.DropConverter;
 import db.client.mongo.converter.dto.ConvertedStatement;
@@ -8,7 +8,7 @@ import net.sf.jsqlparser.statement.drop.Drop;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MongoDropConverter implements DropConverter {
+public class DropStatementConverter implements DropConverter {
 
 	public ConvertedStatement convert(Statement statement) {
 		Drop drop = (Drop) statement;

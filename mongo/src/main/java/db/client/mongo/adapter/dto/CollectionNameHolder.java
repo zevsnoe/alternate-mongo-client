@@ -1,4 +1,4 @@
-package db.client.mongo.adapter.data;
+package db.client.mongo.adapter.dto;
 
 public class CollectionNameHolder {
 

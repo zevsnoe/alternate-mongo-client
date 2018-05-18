@@ -1,11 +1,11 @@
-package db.client.mongo.gateway;
+package db.client.mongo.gateway.repo;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.UpdateResult;
 import db.client.contract.mongo.AdoptedStatement;
-import db.client.mongo.adapter.data.UpdateManyAdoptedStatement;
+import db.client.mongo.adapter.dto.UpdateManyAdoptedStatement;
 import db.client.mongo.gateway.contract.GatewayClient;
-import db.client.mongo.gateway.contract.MongoUpdateGateway;
+import db.client.mongo.gateway.contract.UpdateGateway;
 import db.client.mongo.gateway.dto.QueryExecutionResult;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import org.springframework.stereotype.Repository;
 import static com.mongodb.client.model.Updates.combine;
 
 @Repository
-public class MongoUpdateManyGateway implements MongoUpdateGateway {
+public class UpdateManyGateway implements UpdateGateway {
 
 	private final GatewayClient client;
 
 	@Autowired
-	public MongoUpdateManyGateway(GatewayClient client) {
+	public UpdateManyGateway(GatewayClient client) {
 		this.client = client;
 	}
 

@@ -1,4 +1,4 @@
-package db.client.mongo.converter;
+package db.client.mongo.converter.service;
 
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.converter.contract.ConverterService;
@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MongoConverterService implements ConverterService {
+public class VisitorConverterService implements ConverterService {
 
 	private final InsertConverter insertConverter;
 	private final UpdateConverter updateConverter;
@@ -29,10 +29,10 @@ public class MongoConverterService implements ConverterService {
 	private final DropConverter dropConverter;
 
 	@Autowired
-	public MongoConverterService(InsertConverter insertConverter,
-								 UpdateConverter updateConverter,
-								 SelectConverter selectConverter,
-								 DropConverter dropConverter) {
+	public VisitorConverterService(InsertConverter insertConverter,
+								   UpdateConverter updateConverter,
+								   SelectConverter selectConverter,
+								   DropConverter dropConverter) {
 		this.insertConverter = insertConverter;
 		this.updateConverter = updateConverter;
 		this.selectConverter = selectConverter;
@@ -41,7 +41,7 @@ public class MongoConverterService implements ConverterService {
 
 	@Override
 	public QueryConvertedStatement convert(Statement statement) {
-		MongoStatementVisitor statementVisitor = new MongoStatementVisitor();
+		QueryStatementVisitor statementVisitor = new QueryStatementVisitor();
 		try {
 			statement.accept(statementVisitor);
 		} catch (Exception e){
@@ -52,7 +52,7 @@ public class MongoConverterService implements ConverterService {
 		return statementVisitor.statement;
 	}
 
-	private class MongoStatementVisitor implements StatementVisitor {
+	private class QueryStatementVisitor implements StatementVisitor {
 		private QueryConvertedStatement statement = null;
 
 		@Override

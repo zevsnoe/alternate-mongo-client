@@ -1,4 +1,4 @@
-package db.client.mongo.adapter.data;
+package db.client.mongo.adapter.dto;
 
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.StatementType;

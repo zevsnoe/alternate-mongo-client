@@ -12,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MongoDBClient implements Client {
+public class DBClient implements Client {
 
 	private final QueryConverter converter;
 	private final QueryAdapter adapter;
 	private final Gateway gateway;
 
 	@Autowired
-	public MongoDBClient(QueryConverter converter, QueryAdapter adapter, Gateway gateway) {
+	public DBClient(QueryConverter converter, QueryAdapter adapter, Gateway gateway) {
 		this.converter = converter;
 		this.adapter = adapter;
 		this.gateway = gateway;
