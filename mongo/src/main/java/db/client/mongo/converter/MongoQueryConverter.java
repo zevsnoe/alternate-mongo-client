@@ -36,7 +36,7 @@ public class MongoQueryConverter implements QueryConverter {
 			statement.accept(statementVisitor);
 		} catch (Exception e){
 			e.printStackTrace();
-			throw new MongoSQLAdapterException("Can't converter due to internal error");
+			throw new MongoSQLAdapterException("Can't convert due to internal error");
 		}
 
 		return statementVisitor.statement;
