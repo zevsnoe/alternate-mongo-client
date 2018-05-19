@@ -1,5 +1,0 @@
-#TODO: rid of this file
-db:
-  host: localhost
-  port: 27017
-  name: mydb

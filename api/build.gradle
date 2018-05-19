@@ -23,3 +23,8 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+bootJar {
+	baseName = 'db_client_rest_api'
+	version =  '0.1'
+}

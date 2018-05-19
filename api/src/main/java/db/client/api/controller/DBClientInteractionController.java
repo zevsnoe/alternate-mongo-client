@@ -3,7 +3,6 @@ package db.client.api.controller;
 import db.client.api.dto.QueryResultDto;
 import db.client.contract.client.ClientFactoryInterface;
 import db.client.contract.client.Interactor;
-import db.client.app.interactor.ClientInteractor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -29,7 +28,7 @@ public class DBClientInteractionController {
 	private final ClientFactoryInterface clientFactory;
 
 	@Autowired
-	public DBClientInteractionController(ClientInteractor interactor, ClientFactoryInterface clientFactory) {
+	public DBClientInteractionController(Interactor interactor, ClientFactoryInterface clientFactory) {
 		this.interactor = interactor;
 		this.clientFactory = clientFactory;
 	}

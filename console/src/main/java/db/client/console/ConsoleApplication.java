@@ -3,6 +3,7 @@ package db.client.console;
 import db.client.contract.client.Client;
 import db.client.contract.client.ClientFactoryInterface;
 import db.client.contract.client.Interactor;
+import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,7 +18,10 @@ import static org.springframework.boot.WebApplicationType.*;
 public class ConsoleApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext ctx = new SpringApplicationBuilder(ConsoleApplication.class).web(NONE).run(args);
+		ConfigurableApplicationContext ctx = new SpringApplicationBuilder(ConsoleApplication.class)
+				.web(NONE)
+				.bannerMode(Banner.Mode.OFF)
+				.run(args);
 		Interactor interactor = ctx.getBean(Interactor.class);
 		ClientFactoryInterface clientFactory = ctx.getBean(ClientFactoryInterface.class);
 		Client client = clientFactory.getClient();
@@ -34,5 +38,4 @@ public class ConsoleApplication {
 
 		System.exit(0);
 	}
-
 }
