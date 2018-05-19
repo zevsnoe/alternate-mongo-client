@@ -47,17 +47,19 @@ public class WhereStatementAdapter extends WhereExpressionAdapter {
 
 	//TODO: refactor, rid of parenthesis check, interface
 	protected BasicDBObject adoptWhereStatement(Expression expression) {
-		if (expression instanceof Parenthesis) {
-			expression = ((Parenthesis) expression).getExpression();
-		}
 		WhereExpressionVisitor visitor = new WhereExpressionVisitor();
-		expression.accept(visitor);
+		if (null != expression) {
+			if (expression instanceof Parenthesis) {
+				expression = ((Parenthesis) expression).getExpression();
+			}
+			expression.accept(visitor);
+		}
 
 		return visitor.result;
 	}
 
 	private class WhereExpressionVisitor implements ExpressionVisitor {
-		private BasicDBObject result;
+		private BasicDBObject result = new BasicDBObject();
 
 		@Override
 		public void visit(Parenthesis parenthesis) {
