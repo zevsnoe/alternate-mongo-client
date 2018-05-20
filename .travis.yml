@@ -10,7 +10,7 @@ jdk:
 
 before_install:
  - chmod +x gradlew
- - docker build -t db_client_app .
+ - docker build -t db_client_app . --rm=false
  - docker run db_client_app
 
 install: gradle wrapper
