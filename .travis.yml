@@ -10,7 +10,7 @@ jdk:
 
 before_install:
  - chmod +x gradlew
- - docker build -t alexbz/alternate_db_client
+ - docker build -t alexbz/alternate_db_client .
  - docker run alexbz/alternate_db_client
 
 install: gradle wrapper
