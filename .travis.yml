@@ -9,13 +9,11 @@ services:
  - docker
 
 script:
-  - gradle wrapper
   - chmod +x gradlew
+  - gradle wrapper
 
 before_install:
   - ./gradlew bootJar
-
-install:
  - docker build -f Dockerfile -t db_client_app .
 
 after_success:
