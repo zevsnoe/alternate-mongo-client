@@ -5,21 +5,19 @@ language: java
 jdk:
  - oraclejdk8
 
-#services:
-# - docker
+services:
+ - docker
 
 script:
   - chmod +x gradlew
+  - gradle wrapper
   - ./gradlew bootJar
 
 before_install:
-# - docker build -t db_client_app .
-
-install: gradle wrapper
+ - docker build -t db_client_app .
 
 after_success:
- - ./gradlew bootRun
-# - docker run db_client_app
+ - docker run -p 8080:8080 db_client_app
 
 deploy:
   provider: pages
