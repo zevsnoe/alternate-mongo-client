@@ -12,7 +12,8 @@ script:
   - chmod +x gradlew
   - gradle wrapper
 
-after_success:
+before_install:
+ - docker pull alexbz/alternate_db_client
  - docker build -f Dockerfile -t db_client_app .
  - docker run -p 8080:8080 db_client_app
 
