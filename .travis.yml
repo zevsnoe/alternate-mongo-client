@@ -14,7 +14,7 @@ script:
   - ./gradlew bootJar
 
 before_install:
- - docker build -t db_client_app .
+ - docker build -f Dockerfile -t db_client_app .
 
 after_success:
  - docker run -p 8080:8080 db_client_app
