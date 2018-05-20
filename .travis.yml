@@ -12,10 +12,8 @@ script:
   - chmod +x gradlew
   - gradle wrapper
 
-install:
- - docker build -f Dockerfile -t db_client_app .
-
 after_success:
+ - docker build -f Dockerfile -t db_client_app .
  - docker run -p 8080:8080 db_client_app
 
 deploy:
