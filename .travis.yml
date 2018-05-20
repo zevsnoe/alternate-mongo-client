@@ -1,4 +1,4 @@
-install: gradle wrapper --gradle-version 4.3
+install: gradle wrapper
 language: java
 jdk:
  - oraclejdk8
