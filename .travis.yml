@@ -1,15 +1,24 @@
-install: gradle wrapper
+sudo: required
+
 language: java
+
+services:
+ - docker
+
 jdk:
  - oraclejdk8
 
 before_install:
  - chmod +x gradlew
+ - docker pull alexbz/alternate_db_client
+ - docker run -d -p 127.0.0.1:8080 alexbz/alternate_db_client
 
-#deploy:
-#  provider: pages
-#  skip-cleanup: true
-#  github-token: $GITHUB_TOKEN
-#  keep-history: true
-#on:
-#   branch: master
+install: gradle wrapper
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+on:
+   branch: master
