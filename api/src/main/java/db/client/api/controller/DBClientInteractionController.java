@@ -35,11 +35,6 @@ public class DBClientInteractionController {
 
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Execute query", notes = "Executing query")
-	@ApiResponses(value = {
-			@ApiResponse(code = 204, message = "Success run but no result"),
-			@ApiResponse(code = 400, message = "Query is not valid"),
-			@ApiResponse(code = 500, message = "Error occurred while executing query")
-	})
 	@RequestMapping(value = "/execute", method = RequestMethod.POST)
 	public QueryResultDto execute(@RequestBody @Valid String query) {
 		Object o = interactor.interactWith(clientFactory.getClient(), query);
