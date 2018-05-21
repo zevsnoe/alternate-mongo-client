@@ -5,11 +5,11 @@ language: java
 jdk:
  - oraclejdk8
 
+before_install:
+ - chmod +x gradlew
+
 #services:
 # - docker
-
-script:
-  - chmod +x gradlew
 
 #before_install:
 # - docker pull alexbz/alternate_db_client
