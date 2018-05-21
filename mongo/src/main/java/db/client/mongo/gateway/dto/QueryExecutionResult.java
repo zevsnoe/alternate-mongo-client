@@ -35,7 +35,7 @@ public class QueryExecutionResult {
 	}
 
 	public static Object from(UnsupportedOperationException e) {
-		return e.getMessage();
+		return "Operation is not supported";
 	}
 
 	public static Object from(InvalidSQLException e) {

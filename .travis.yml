@@ -5,22 +5,22 @@ language: java
 jdk:
  - oraclejdk8
 
-services:
- - docker
+#services:
+# - docker
 
 script:
   - chmod +x gradlew
   - gradle wrapper
 
-before_install:
- - docker pull alexbz/alternate_db_client
- - docker build -f Dockerfile -t db_client_app .
- - docker run -p 8080:8080 db_client_app
+#before_install:
+# - docker pull alexbz/alternate_db_client
+# - docker build -f Dockerfile -t db_client_app .
+# - docker run -p 8080:8080 db_client_app
 
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: true
-on:
-   branch: master
+#deploy:
+#  provider: pages
+#  skip-cleanup: true
+#  github-token: $GITHUB_TOKEN
+#  keep-history: true
+#on:
+#   branch: master

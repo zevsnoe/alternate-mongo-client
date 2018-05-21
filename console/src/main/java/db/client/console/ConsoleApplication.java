@@ -1,7 +1,7 @@
 package db.client.console;
 
 import db.client.contract.client.Client;
-import db.client.contract.client.ClientFactoryInterface;
+import db.client.contract.client.ClientFactory;
 import db.client.contract.client.Interactor;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +23,7 @@ public class ConsoleApplication {
 				.bannerMode(Banner.Mode.OFF)
 				.run(args);
 		Interactor interactor = ctx.getBean(Interactor.class);
-		ClientFactoryInterface clientFactory = ctx.getBean(ClientFactoryInterface.class);
+		ClientFactory clientFactory = ctx.getBean(ClientFactory.class);
 		Client client = clientFactory.getClient();
 
 		Scanner scanner = new Scanner(System.in);

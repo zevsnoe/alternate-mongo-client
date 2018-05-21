@@ -1,12 +1,13 @@
 package db.client.mongo.adapter;
 
-
-import db.client.mongo.adapter.contract.Adapter;
-import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.contract.mongo.AdoptedStatement;
+import db.client.contract.mongo.QueryConvertedStatement;
+import db.client.mongo.adapter.contract.DropAdapter;
 import db.client.mongo.adapter.dto.DropAdoptedStatement;
+import org.springframework.stereotype.Service;
 
-public class DropAdapter implements Adapter {
+@Service
+public class DropStatementAdapter implements DropAdapter {
 
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {

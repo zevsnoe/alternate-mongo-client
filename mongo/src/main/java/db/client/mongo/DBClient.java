@@ -9,9 +9,9 @@ import db.client.mongo.gateway.contract.Gateway;
 import db.client.mongo.gateway.dto.QueryExecutionResult;
 import db.client.mongo.validator.InvalidSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class DBClient implements Client {
 
 	private final QueryConverter converter;
@@ -25,8 +25,6 @@ public class DBClient implements Client {
 		this.gateway = gateway;
 	}
 
-	//TODO: cover exceptional cases
-	//TODO: return some dto object
 	@Override
 	public Object execute(String query) {
 		try{

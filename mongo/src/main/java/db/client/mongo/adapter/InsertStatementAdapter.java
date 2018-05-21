@@ -1,15 +1,17 @@
 package db.client.mongo.adapter;
 
-import db.client.mongo.adapter.contract.Adapter;
-import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.contract.mongo.AdoptedStatement;
+import db.client.contract.mongo.QueryConvertedStatement;
+import db.client.mongo.adapter.contract.InsertAdapter;
 import db.client.mongo.adapter.dto.InsertSingleAdoptedStatement;
 import db.client.mongo.converter.dto.InsertConvertedStatement;
 import db.client.mongo.validator.MongoClientException;
 import javafx.util.Pair;
 import org.bson.Document;
+import org.springframework.stereotype.Service;
 
-public class InsertAdapter implements Adapter {
+@Service
+public class InsertStatementAdapter implements InsertAdapter {
 
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {

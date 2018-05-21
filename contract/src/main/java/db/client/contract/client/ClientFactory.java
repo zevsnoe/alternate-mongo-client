@@ -1,6 +1,6 @@
 package db.client.contract.client;
 
 @FunctionalInterface
-public interface ClientFactoryInterface {
+public interface ClientFactory {
 	Client getClient();
 }

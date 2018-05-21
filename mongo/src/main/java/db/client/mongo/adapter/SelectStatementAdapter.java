@@ -1,21 +1,22 @@
 package db.client.mongo.adapter;
 
-
-import db.client.mongo.adapter.contract.Adapter;
-import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.contract.mongo.AdoptedStatement;
+import db.client.contract.mongo.QueryConvertedStatement;
+import db.client.mongo.adapter.contract.SelectAdapter;
 import db.client.mongo.adapter.dto.SelectAdoptedStatement;
 import db.client.mongo.adapter.where.WhereStatementAdapter;
 import db.client.mongo.converter.dto.SelectConvertedStatement;
 import db.client.mongo.validator.MongoClientException;
 import net.sf.jsqlparser.expression.Expression;
 import org.bson.conversions.Bson;
+import org.springframework.stereotype.Service;
 
 import static com.mongodb.client.model.Projections.excludeId;
 import static com.mongodb.client.model.Projections.fields;
 import static com.mongodb.client.model.Projections.include;
 
-public class SelectAdapter extends WhereStatementAdapter implements Adapter {
+@Service
+public class SelectStatementAdapter extends WhereStatementAdapter implements SelectAdapter {
 
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {

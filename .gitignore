@@ -1,9 +1,6 @@
 .gradle
 /build/
-/out/
 !gradle/wrapper/gradle-wrapper.jar
-gradlew
-gradlew.bat
 
 ### STS ###
 .apt_generated
@@ -16,14 +13,25 @@ gradlew.bat
 
 ### IntelliJ IDEA ###
 .idea
+*.iws
 *.iml
+*.ipr
+/out/
 
 ### NetBeans ###
-gradle/
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-*/build/
-*/out/
+api/build/
+api/out/
+app/build/
+app/out/
+console/build/
+console/out/
+contract/build/
+contract/out/
+gradle/
+mongo/build/
+mongo/out/

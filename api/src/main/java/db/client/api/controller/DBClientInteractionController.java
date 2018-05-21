@@ -1,7 +1,7 @@
 package db.client.api.controller;
 
 import db.client.api.dto.QueryResultDto;
-import db.client.contract.client.ClientFactoryInterface;
+import db.client.contract.client.ClientFactory;
 import db.client.contract.client.Interactor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,10 +25,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class DBClientInteractionController {
 
 	private final Interactor interactor;
-	private final ClientFactoryInterface clientFactory;
+	private final ClientFactory clientFactory;
 
 	@Autowired
-	public DBClientInteractionController(Interactor interactor, ClientFactoryInterface clientFactory) {
+	public DBClientInteractionController(Interactor interactor, ClientFactory clientFactory) {
 		this.interactor = interactor;
 		this.clientFactory = clientFactory;
 	}

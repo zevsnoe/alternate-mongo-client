@@ -8,11 +8,11 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
 
-@Component
+@Service
 public class ConverterWithParser implements QueryConverter {
 
 	private final CCJSqlParserManager parser;
@@ -24,6 +24,7 @@ public class ConverterWithParser implements QueryConverter {
 		this.parser = new CCJSqlParserManager();
 	}
 
+	@Override
 	public QueryConvertedStatement convert(String query) throws InvalidSQLException{
 		Statement statement = parse(query);
 		return sevice.convert(statement);
