@@ -10,7 +10,6 @@ jdk:
 
 script:
   - chmod +x gradlew
-  - gradle wrapper
 
 #before_install:
 # - docker pull alexbz/alternate_db_client
