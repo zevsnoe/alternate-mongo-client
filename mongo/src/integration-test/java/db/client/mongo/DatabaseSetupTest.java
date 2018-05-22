@@ -26,7 +26,7 @@ public class DatabaseSetupTest {
 	public DBConfig config;
 
 	@Test
-	public void test() {
+	public void testAwareness() {
 		dbAwared.setDataBase();
 		try {
 			dbAwared.createCollection("test_collection");

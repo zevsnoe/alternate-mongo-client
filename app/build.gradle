@@ -2,5 +2,5 @@ dependencies {
 	compile 'org.springframework:spring-context:5.0.5.RELEASE'
 	compile project(':mongo')
 	compile project(':contract')
-	testCompile "org.mockito:mockito-core:2.15.0"
+	testCompile "org.mockito:mockito-core:2.18.3"
 }
