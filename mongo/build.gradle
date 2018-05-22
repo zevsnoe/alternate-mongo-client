@@ -1,9 +1,30 @@
+plugins {
+	id 'org.unbroken-dome.test-sets' version '1.4.5'
+}
+
 dependencies {
 	compile 'net.sf.jsqlparser:jsqlparser:0.8.0'
 	compile 'org.springframework.boot:spring-boot:2.0.2.RELEASE'
 	compile 'org.mongodb:mongodb-driver:3.7.0'
 	compile 'org.springframework:spring-context:5.0.5.RELEASE'
+	compile group: 'org.yaml', name: 'snakeyaml', version: '1.19'
 	testCompile 'org.mockito:mockito-core:2.18.3'
+	testCompile 'junit:junit:4.+'
+	testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.5.RELEASE'
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-test', version: '2.0.2.RELEASE'
 	compile project(':contract')
 }
+
+testSets {
+	integrationTest { dirName = 'integration-test' }
+}
+
+project.integrationTest {
+	outputs.upToDateWhen { false }
+}
+
+project.test {
+	outputs.upToDateWhen { false }
+}
+
 

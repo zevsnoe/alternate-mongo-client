@@ -30,6 +30,15 @@ public class MongoDBAwared implements DBAwared {
 	}
 
 	@Override
+	public void createCollection(String collectionName) {
+		try {
+			getDataBase().createCollection(collectionName);
+		} catch (Exception exception) {
+			throw new MongoClientException("Can't create a collection with name " + collectionName);
+		}
+	}
+
+	@Override
 	public MongoCollection<Document> getCollection(String collectionName) {
 		try {
 			return getDataBase().getCollection(collectionName);
