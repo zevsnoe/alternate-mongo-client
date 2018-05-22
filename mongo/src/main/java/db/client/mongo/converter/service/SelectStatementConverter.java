@@ -1,8 +1,8 @@
 package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.SelectConverter;
-import db.client.mongo.converter.dto.ConvertedStatement;
-import db.client.mongo.converter.dto.SelectConvertedStatement;
+import db.client.mongo.converter.statement.ConvertedStatement;
+import db.client.mongo.converter.statement.SelectConvertedStatement;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.AllColumns;

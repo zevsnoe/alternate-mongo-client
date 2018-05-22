@@ -6,7 +6,7 @@ import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.QueryAdapter;
 import db.client.mongo.converter.contract.QueryConverter;
 import db.client.mongo.gateway.contract.Gateway;
-import db.client.mongo.gateway.dto.QueryExecutionResult;
+import db.client.mongo.gateway.result.QueryExecutionResult;
 import db.client.mongo.validator.InvalidSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

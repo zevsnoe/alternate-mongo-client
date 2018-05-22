@@ -1,34 +1,34 @@
 package db.client.mongo.gateway.repo;
 
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import db.client.contract.mongo.AdoptedStatement;
-import db.client.mongo.adapter.dto.SelectAdoptedStatement;
-import db.client.mongo.gateway.contract.GatewayClient;
+import db.client.mongo.adapter.statement.SelectAdoptedStatement;
+import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.contract.SelectGateway;
-import db.client.mongo.gateway.dto.QueryExecutionResult;
+import db.client.mongo.gateway.result.QueryExecutionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class SimpleSelectGateway implements SelectGateway {
 
-	private final GatewayClient client;
+	private final DBAwared client;
 
 	@Autowired
-	public SimpleSelectGateway(GatewayClient client) {
+	public SimpleSelectGateway(DBAwared client) {
 		this.client = client;
 	}
 
-	//TODO: cover exceptional cases
 	@Override
 	public Object select(AdoptedStatement statement) {
 		SelectAdoptedStatement selectStatement = (SelectAdoptedStatement) statement;
 		MongoCollection collection = client.getCollection(statement.getCollectionName());
-		MongoCursor cursor = collection.find(selectStatement.getFilter())
-				.projection(selectStatement.getProjections())
-				.iterator();
-
-		return QueryExecutionResult.from(cursor);
+		try {
+			return QueryExecutionResult.from(collection.find(selectStatement.getFilter())
+					.projection(selectStatement.getProjections())
+					.iterator());
+		} catch (Exception e) {
+			return QueryExecutionResult.internalError(e);
+		}
 	}
 }

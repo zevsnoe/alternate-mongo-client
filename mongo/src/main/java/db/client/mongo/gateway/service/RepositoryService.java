@@ -1,12 +1,12 @@
-package db.client.mongo.gateway;
+package db.client.mongo.gateway.service;
 
 import db.client.contract.mongo.AdoptedStatement;
-import db.client.mongo.gateway.contract.Gateway;
 import db.client.mongo.gateway.contract.DropGateway;
+import db.client.mongo.gateway.contract.Gateway;
 import db.client.mongo.gateway.contract.InsertGateway;
 import db.client.mongo.gateway.contract.SelectGateway;
 import db.client.mongo.gateway.contract.UpdateGateway;
-import db.client.mongo.validator.MongoSQLAdapterException;
+import db.client.mongo.validator.MongoGatewayException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,8 @@ public class RepositoryService implements Gateway {
 			case INSERT: return insertGateway.insert(adoptedStatement);
 			case UPDATE: return updateGateway.update(adoptedStatement);
 			case DROP:   return dropGateway.drop(adoptedStatement);
-			default: throw new MongoSQLAdapterException("Undefined Statement");
+			default: throw new MongoGatewayException("Undefined Statement");
 		}
 	}
+
 }

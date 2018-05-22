@@ -3,7 +3,7 @@ package db.client.mongo.adapter;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.DropAdapter;
-import db.client.mongo.adapter.dto.DropAdoptedStatement;
+import db.client.mongo.adapter.statement.DropAdoptedStatement;
 import org.springframework.stereotype.Service;
 
 @Service

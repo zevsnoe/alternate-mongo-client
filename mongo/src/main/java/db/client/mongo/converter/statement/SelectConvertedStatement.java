@@ -1,4 +1,4 @@
-package db.client.mongo.converter.dto;
+package db.client.mongo.converter.statement;
 
 import db.client.contract.StatementType;
 

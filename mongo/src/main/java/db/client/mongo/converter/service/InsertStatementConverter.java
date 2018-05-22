@@ -1,8 +1,8 @@
 package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.InsertConverter;
-import db.client.mongo.converter.dto.ConvertedStatement;
-import db.client.mongo.converter.dto.InsertConvertedStatement;
+import db.client.mongo.converter.statement.ConvertedStatement;
+import db.client.mongo.converter.statement.InsertConvertedStatement;
 import db.client.mongo.helper.ExpressionHelper;
 import db.client.mongo.validator.InvalidSQLException;
 import javafx.util.Pair;

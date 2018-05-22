@@ -1,8 +1,8 @@
 package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.DropConverter;
-import db.client.mongo.converter.dto.ConvertedStatement;
-import db.client.mongo.converter.dto.DropConvertedStatement;
+import db.client.mongo.converter.statement.ConvertedStatement;
+import db.client.mongo.converter.statement.DropConvertedStatement;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.drop.Drop;
 import org.springframework.stereotype.Service;

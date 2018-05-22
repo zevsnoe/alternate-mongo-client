@@ -1,8 +1,8 @@
 package db.client.mongo.converter.service;
 
 import db.client.mongo.converter.contract.UpdateConverter;
-import db.client.mongo.converter.dto.ConvertedStatement;
-import db.client.mongo.converter.dto.UpdateConvertedStatement;
+import db.client.mongo.converter.statement.ConvertedStatement;
+import db.client.mongo.converter.statement.UpdateConvertedStatement;
 import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.statement.Statement;
