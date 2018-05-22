@@ -1,4 +1,4 @@
-package db.client.mongo.adapter;
+package db.client.mongo.adapter.process;
 
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;

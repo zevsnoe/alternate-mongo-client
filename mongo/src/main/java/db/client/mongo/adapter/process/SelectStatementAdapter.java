@@ -1,10 +1,10 @@
-package db.client.mongo.adapter;
+package db.client.mongo.adapter.process;
 
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.SelectAdapter;
 import db.client.mongo.adapter.statement.SelectAdoptedStatement;
-import db.client.mongo.adapter.where.WhereStatementAdapter;
+import db.client.mongo.adapter.process.where.WhereStatementAdapter;
 import db.client.mongo.converter.statement.SelectConvertedStatement;
 import db.client.mongo.validator.MongoClientException;
 import net.sf.jsqlparser.expression.Expression;
