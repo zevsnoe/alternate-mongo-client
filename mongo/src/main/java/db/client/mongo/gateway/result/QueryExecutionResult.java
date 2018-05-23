@@ -10,7 +10,6 @@ import db.client.mongo.validator.InvalidSQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: REFACTOR
 public class QueryExecutionResult {
 
 	public static Object from(MongoCursor cursor) {

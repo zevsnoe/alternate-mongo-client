@@ -46,9 +46,8 @@ public class VisitorConverter implements Converter {
 		QueryStatementVisitor statementVisitor = new QueryStatementVisitor();
 		try {
 			statement.accept(statementVisitor);
-		} catch (Exception e){
-			e.printStackTrace();
-			throw new MongoSQLConverterException("Can't convert due to internal error");
+		} catch (UnsupportedOperationException e){
+			throw new MongoSQLConverterException(e.getMessage());
 		}
 
 		return statementVisitor.statement;

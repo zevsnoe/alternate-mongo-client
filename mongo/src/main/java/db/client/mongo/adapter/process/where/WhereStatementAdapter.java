@@ -45,7 +45,6 @@ import net.sf.jsqlparser.statement.select.SubSelect;
 
 public class WhereStatementAdapter extends WhereExpressionAdapter {
 
-	//TODO: refactor, rid of parenthesis check, interface
 	protected BasicDBObject adoptWhereStatement(Expression expression) {
 		WhereExpressionVisitor visitor = new WhereExpressionVisitor();
 		if (null != expression) {

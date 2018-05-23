@@ -27,7 +27,7 @@ public class SwaggerConfig {
 	}
 
 	protected ApiInfo apiInfo() {
-		return new ApiInfo(//TODO: extract to relaxed property resolver:
+		return new ApiInfo(
 				"Alternative db client solutions",
 				"Adopting sql query to nosql request and retrieve data",
 				"0.01",

@@ -26,7 +26,7 @@ public class ConverterWithParser implements QueryConverter {
 	}
 
 	@Override
-	public QueryConvertedStatement convert(String query) throws InvalidSQLException{
+	public QueryConvertedStatement convert(String query) throws InvalidSQLException {
 		Statement statement = parse(query);
 		return sevice.convert(statement);
 	}

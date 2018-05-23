@@ -1,6 +1,5 @@
 package db.client.api.dto;
 
-//TODO: generic
 public class QueryResultDto {
 	private Object result;
 
