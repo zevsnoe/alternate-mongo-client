@@ -5,15 +5,16 @@ import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.Adapter;
 import db.client.mongo.adapter.contract.DropAdapter;
 import db.client.mongo.adapter.contract.InsertAdapter;
-import db.client.mongo.adapter.contract.QueryAdapter;
 import db.client.mongo.adapter.contract.SelectAdapter;
 import db.client.mongo.adapter.contract.UpdateAdapter;
 import db.client.mongo.validator.MongoSQLAdapterException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StatementQueryAdapter implements QueryAdapter {
+@Qualifier
+public class StatementQueryAdapter implements Adapter {
 
 	private final SelectAdapter selectAdapter;
 	private final InsertAdapter insertAdapter;

@@ -1,6 +1,6 @@
 package db.client.mongo.converter;
 
-import db.client.mongo.converter.contract.ConverterService;
+import db.client.mongo.converter.contract.Converter;
 import db.client.mongo.validator.InvalidSQLException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
@@ -33,7 +33,7 @@ public class ConverterWithParserTest {
 	private ConverterWithParser converter;
 
 	@Mock
-	private ConverterService service;
+	private Converter service;
 
 	@Captor
 	private ArgumentCaptor<Statement> statementCaptor;

@@ -1,4 +1,4 @@
-package db.client.mongo;
+package db.client.mongo.client;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "db")
-//TODO: pass from main
 public class DBConfig {
 	private String name;
 	private String host;

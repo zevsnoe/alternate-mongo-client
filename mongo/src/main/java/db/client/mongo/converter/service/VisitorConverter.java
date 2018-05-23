@@ -1,12 +1,12 @@
 package db.client.mongo.converter.service;
 
 import db.client.contract.mongo.QueryConvertedStatement;
-import db.client.mongo.converter.contract.ConverterService;
+import db.client.mongo.converter.contract.Converter;
 import db.client.mongo.converter.contract.DropConverter;
 import db.client.mongo.converter.contract.InsertConverter;
 import db.client.mongo.converter.contract.SelectConverter;
 import db.client.mongo.converter.contract.UpdateConverter;
-import db.client.mongo.validator.MongoSQLAdapterException;
+import db.client.mongo.validator.MongoSQLConverterException;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
@@ -18,10 +18,12 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.truncate.Truncate;
 import net.sf.jsqlparser.statement.update.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VisitorConverterService implements ConverterService {
+@Qualifier
+public class VisitorConverter implements Converter {
 
 	private final InsertConverter insertConverter;
 	private final UpdateConverter updateConverter;
@@ -29,10 +31,10 @@ public class VisitorConverterService implements ConverterService {
 	private final DropConverter dropConverter;
 
 	@Autowired
-	public VisitorConverterService(InsertConverter insertConverter,
-								   UpdateConverter updateConverter,
-								   SelectConverter selectConverter,
-								   DropConverter dropConverter) {
+	public VisitorConverter(InsertConverter insertConverter,
+							UpdateConverter updateConverter,
+							SelectConverter selectConverter,
+							DropConverter dropConverter) {
 		this.insertConverter = insertConverter;
 		this.updateConverter = updateConverter;
 		this.selectConverter = selectConverter;
@@ -46,7 +48,7 @@ public class VisitorConverterService implements ConverterService {
 			statement.accept(statementVisitor);
 		} catch (Exception e){
 			e.printStackTrace();
-			throw new MongoSQLAdapterException("Can't convert due to internal error");
+			throw new MongoSQLConverterException("Can't convert due to internal error");
 		}
 
 		return statementVisitor.statement;

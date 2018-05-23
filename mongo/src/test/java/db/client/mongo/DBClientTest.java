@@ -2,7 +2,8 @@ package db.client.mongo;
 
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
-import db.client.mongo.adapter.contract.QueryAdapter;
+import db.client.mongo.adapter.contract.Adapter;
+import db.client.mongo.client.DBClient;
 import db.client.mongo.converter.contract.QueryConverter;
 import db.client.mongo.gateway.contract.RepositoryService;
 import db.client.mongo.gateway.result.QueryExecutionResult;
@@ -31,7 +32,7 @@ public class DBClientTest {
 	private QueryConverter converter;
 
 	@Mock
-	private QueryAdapter adapter;
+	private Adapter adapter;
 
 	@Mock
 	private RepositoryService gateway;

@@ -4,7 +4,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import db.client.mongo.DBConfig;
+import db.client.mongo.client.DBConfig;
 import db.client.mongo.gateway.contract.DBAwared;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;

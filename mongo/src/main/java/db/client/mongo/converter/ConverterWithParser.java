@@ -1,13 +1,14 @@
 package db.client.mongo.converter;
 
 import db.client.contract.mongo.QueryConvertedStatement;
-import db.client.mongo.converter.contract.ConverterService;
+import db.client.mongo.converter.contract.Converter;
 import db.client.mongo.converter.contract.QueryConverter;
 import db.client.mongo.validator.InvalidSQLException;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
@@ -16,10 +17,10 @@ import java.io.StringReader;
 public class ConverterWithParser implements QueryConverter {
 
 	private final CCJSqlParserManager parser;
-	private final ConverterService sevice;
+	private final Converter sevice;
 
 	@Autowired
-	public ConverterWithParser(ConverterService sevice ) {
+	public ConverterWithParser(@Qualifier Converter sevice) {
 		this.sevice = sevice;
 		this.parser = new CCJSqlParserManager();
 	}

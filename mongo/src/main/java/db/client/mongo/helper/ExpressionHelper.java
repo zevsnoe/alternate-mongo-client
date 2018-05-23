@@ -10,7 +10,6 @@ import net.sf.jsqlparser.schema.Column;
 
 public class ExpressionHelper {
 
-	//TODO: consider remove
 	public static String toFieldName(Expression e) {
 		if (e instanceof StringValue)
 			return e.toString();

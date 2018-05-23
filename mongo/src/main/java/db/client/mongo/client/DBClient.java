@@ -1,25 +1,28 @@
-package db.client.mongo;
+package db.client.mongo.client;
 
 import db.client.contract.client.Client;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
-import db.client.mongo.adapter.contract.QueryAdapter;
+import db.client.mongo.adapter.contract.Adapter;
 import db.client.mongo.converter.contract.QueryConverter;
 import db.client.mongo.gateway.contract.RepositoryService;
 import db.client.mongo.gateway.result.QueryExecutionResult;
 import db.client.mongo.validator.InvalidSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DBClient implements Client {
 
 	private final QueryConverter converter;
-	private final QueryAdapter adapter;
+	private final Adapter adapter;
 	private final RepositoryService repositoryService;
 
 	@Autowired
-	public DBClient(QueryConverter converter, QueryAdapter adapter, RepositoryService repositoryService) {
+	public DBClient(QueryConverter converter,
+					@Qualifier Adapter adapter,
+					RepositoryService repositoryService) {
 		this.converter = converter;
 		this.adapter = adapter;
 		this.repositoryService = repositoryService;

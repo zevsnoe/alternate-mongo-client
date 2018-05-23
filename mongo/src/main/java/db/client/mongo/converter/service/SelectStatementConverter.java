@@ -6,10 +6,12 @@ import db.client.mongo.converter.statement.SelectConvertedStatement;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.AllColumns;
+import net.sf.jsqlparser.statement.select.AllTableColumns;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import net.sf.jsqlparser.statement.select.SelectItem;
+import net.sf.jsqlparser.statement.select.SelectItemVisitor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,12 +20,11 @@ import java.util.List;
 import static db.client.mongo.helper.ExpressionHelper.toFieldName;
 
 @Service
-//TODO: refactor
 public class SelectStatementConverter implements SelectConverter {
 
 	@Override
 	public ConvertedStatement convert(Statement statement) {
-		Select select = (Select)statement;
+		Select select = (Select) statement;
 		PlainSelect plainSelect = validateAndGetSelectBody(select);
 
 		return new SelectConvertedStatement()
@@ -47,16 +48,7 @@ public class SelectStatementConverter implements SelectConverter {
 		List<String> fields = new ArrayList<>();
 		for (Object o : ps.getSelectItems()) {
 			SelectItem selectItem = (SelectItem) o;
-			if (selectItem instanceof AllColumns) {
-				if (fields.size() > 0)
-					throw new UnsupportedOperationException("Can't select * and fields in the same query");
-				break;
-			} else if (selectItem instanceof SelectExpressionItem) {
-				SelectExpressionItem item = (SelectExpressionItem) selectItem;
-				fields.add(toFieldName(item.getExpression()));
-			} else {
-				throw new UnsupportedOperationException("Unknown select item: " + selectItem.getClass().getSimpleName());
-			}
+			selectItem.accept(new ListSelectItemVisitor(fields));
 		}
 		return fields;
 	}
@@ -65,4 +57,27 @@ public class SelectStatementConverter implements SelectConverter {
 		return ((Table) ps.getFromItem()).getName();
 	}
 
+	private class ListSelectItemVisitor implements SelectItemVisitor {
+		private final List<String> fields;
+
+		public ListSelectItemVisitor(List<String> fields) {
+			this.fields = fields;
+		}
+
+		@Override
+		public void visit(AllColumns allColumns) {
+			if (fields.size() > 0)
+				throw new UnsupportedOperationException("Can't select * and fields in the same query");
+		}
+
+		@Override
+		public void visit(AllTableColumns allTableColumns) {
+			throw new UnsupportedOperationException("Unknown select item: " + allTableColumns);
+		}
+
+		@Override
+		public void visit(SelectExpressionItem item) {
+			fields.add(toFieldName(item.getExpression()));
+		}
+	}
 }

@@ -18,9 +18,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class MongoDBAwaredTest {
 
+	@SuppressWarnings("unchecked")
+	private static final MongoCollection<Document> MONGO_COLLECTION = mock(MongoCollection.class);
 	private static final MongoDatabase MONGO_DATABASE = mock(MongoDatabase.class);
-	private static final MongoCollection MONGO_COLLECTION = mock(MongoCollection.class);
-	public static final String COLLECTION_NAME = "collectionName";
+	private static final String COLLECTION_NAME = "collectionName";
 
 	@Spy
 	private MongoDBAwared db;
@@ -38,7 +39,7 @@ public class MongoDBAwaredTest {
 	}
 
 	@Test
-	public void testGetCollectionTransparency() {
+	public void getCollection() {
 		mockDB();
 		when(MONGO_DATABASE.getCollection(eq(COLLECTION_NAME))).thenReturn(MONGO_COLLECTION);
 		MongoCollection<Document> collection = db.getCollection(COLLECTION_NAME);

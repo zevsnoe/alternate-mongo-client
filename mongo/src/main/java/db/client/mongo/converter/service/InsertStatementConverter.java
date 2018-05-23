@@ -21,14 +21,13 @@ public class InsertStatementConverter implements InsertConverter {
 
 	@Override
 	public ConvertedStatement convert(Statement statement) {
-		Insert insertStatemnent = (Insert) statement;
-		//TODO: check instanceof
-		List columns = insertStatemnent.getColumns();
-		validateColumns(insertStatemnent, columns);
+		Insert insertStatement = (Insert) statement;
+		List columns = insertStatement.getColumns();
+		validateColumns(insertStatement, columns);
 
 		return new InsertConvertedStatement()
-				.setValues(fromValuesOf(insertStatemnent, columns))
-				.setCollectionName(fromTableName(insertStatemnent));
+				.setValues(fromValuesOf(insertStatement, columns))
+				.setCollectionName(fromTableName(insertStatement));
 	}
 
 	private void validateColumns(Insert statement, List columns) {
