@@ -6,6 +6,7 @@ import com.mongodb.WriteResult;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.UpdateResult;
 import db.client.mongo.validator.InvalidSQLException;
+import db.client.mongo.validator.MongoClientException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,19 +32,19 @@ public class QueryExecutionResult {
 	}
 
 	public static Object dropFailed(String name) {
-		return new String("Collection " + name + " was not found");
+		return "Collection " + name + " was not found";
 	}
 
-	public static Object from(UnsupportedOperationException e) {
+	public static Object notSupported(UnsupportedOperationException e) {
 		return "Operation is not supported";
-	}
-
-	public static Object from(InvalidSQLException e) {
-		return e.getMessage();
 	}
 
 	public static Object documentIsAbsent(IllegalArgumentException e) {
 		return "Document can't be null for insert: " + e.getMessage();
+	}
+
+	public static Object invalidQuery(InvalidSQLException e) {
+		return e.getMessage();
 	}
 
 	public static Object writeFailed(MongoWriteException e) {
@@ -56,5 +57,9 @@ public class QueryExecutionResult {
 
 	public static Object internalError(Exception e) {
 		return "Internal error: " + e.getMessage();
+	}
+
+	public static Object clientError(MongoClientException e) {
+		return "Mongo client error: " + e.getMessage();
 	}
 }

@@ -6,6 +6,8 @@ import db.client.mongo.adapter.statement.SelectAdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.contract.SelectGateway;
 import db.client.mongo.gateway.result.QueryExecutionResult;
+import db.client.mongo.validator.InvalidStatementException;
+import db.client.mongo.validator.MongoClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,14 +23,21 @@ public class SimpleSelectGateway implements SelectGateway {
 
 	@Override
 	public Object select(AdoptedStatement statement) {
+		if (!(statement instanceof SelectAdoptedStatement)) {
+			throw new InvalidStatementException("Statement " + statement.getClass().getSimpleName() +  "is of wrong type");
+		}
 		SelectAdoptedStatement selectStatement = (SelectAdoptedStatement) statement;
-		MongoCollection collection = client.getCollection(statement.getCollectionName());
+
 		try {
+			MongoCollection collection = client.getCollection(statement.getCollectionName());
 			return QueryExecutionResult.from(collection.find(selectStatement.getFilter())
 					.projection(selectStatement.getProjections())
 					.iterator());
+		} catch (MongoClientException e) {
+			return QueryExecutionResult.clientError(e);
 		} catch (Exception e) {
 			return QueryExecutionResult.internalError(e);
 		}
 	}
+
 }

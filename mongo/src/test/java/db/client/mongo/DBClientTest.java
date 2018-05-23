@@ -44,7 +44,7 @@ public class DBClientTest {
 		InvalidSQLException e = new InvalidSQLException(query);
 		when(converter.convert(eq(query))).thenThrow(e);
 		Object executionResult = dbClient.execute(query);
-		Assert.assertEquals(QueryExecutionResult.from(e), executionResult.toString());
+		Assert.assertEquals(QueryExecutionResult.invalidQuery(e), executionResult.toString());
 
 		verify(converter).convert(eq(query));
 		verify(adapter, times(0)).adopt(any());
@@ -58,7 +58,7 @@ public class DBClientTest {
 		when(converter.convert(eq(query))).thenReturn(convertedStatement);
 		when(adapter.adopt(eq(convertedStatement))).thenThrow(e);
 		Object executionResult = dbClient.execute(query);
-		Assert.assertEquals(QueryExecutionResult.from(e), executionResult.toString());
+		Assert.assertEquals(QueryExecutionResult.notSupported(e), executionResult.toString());
 
 		verify(converter).convert(eq(query));
 		verify(adapter).adopt(eq(convertedStatement));

@@ -19,11 +19,11 @@ public class InsertStatementAdapter implements InsertAdapter {
 			throw new MongoClientException("Wrong statement type - should be " + InsertConvertedStatement.class);
 		InsertSingleAdoptedStatement adoptedStatement = new InsertSingleAdoptedStatement();
 		adoptedStatement.setCollectionName(statement.getCollectionName());
-		adoptedStatement.setDocument(adoptInsertable((InsertConvertedStatement)statement));
+		adoptedStatement.setDocument(from((InsertConvertedStatement)statement));
 		return adoptedStatement;
 	}
 
-	private Document adoptInsertable(InsertConvertedStatement statement) {
+	private Document from(InsertConvertedStatement statement) {
 		Document doc = new Document();
 		for (Pair<String, Object> pair : statement.getValues()) {
 			doc.append(pair.getKey(), pair.getValue());

@@ -35,9 +35,9 @@ public class DBClient implements Client {
 			AdoptedStatement adoptedStatement = adapter.adopt(convertedStatement);
 			return repositoryService.execute(adoptedStatement);
 		} catch (InvalidSQLException e) {
-			return QueryExecutionResult.from(e);
+			return QueryExecutionResult.invalidQuery(e);
 		} catch (UnsupportedOperationException e) {
-			return QueryExecutionResult.from(e);
+			return QueryExecutionResult.notSupported(e);
 		}
 	}
 
