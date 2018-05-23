@@ -4,7 +4,7 @@ import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.QueryAdapter;
 import db.client.mongo.converter.contract.QueryConverter;
-import db.client.mongo.gateway.contract.Gateway;
+import db.client.mongo.gateway.contract.RepositoryService;
 import db.client.mongo.gateway.result.QueryExecutionResult;
 import db.client.mongo.validator.InvalidSQLException;
 import org.junit.Assert;
@@ -34,7 +34,7 @@ public class DBClientTest {
 	private QueryAdapter adapter;
 
 	@Mock
-	private Gateway gateway;
+	private RepositoryService gateway;
 
 	String query = "select * from user";
 

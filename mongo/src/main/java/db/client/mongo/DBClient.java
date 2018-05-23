@@ -5,7 +5,7 @@ import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.QueryAdapter;
 import db.client.mongo.converter.contract.QueryConverter;
-import db.client.mongo.gateway.contract.Gateway;
+import db.client.mongo.gateway.contract.RepositoryService;
 import db.client.mongo.gateway.result.QueryExecutionResult;
 import db.client.mongo.validator.InvalidSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,13 @@ public class DBClient implements Client {
 
 	private final QueryConverter converter;
 	private final QueryAdapter adapter;
-	private final Gateway gateway;
+	private final RepositoryService repositoryService;
 
 	@Autowired
-	public DBClient(QueryConverter converter, QueryAdapter adapter, Gateway gateway) {
+	public DBClient(QueryConverter converter, QueryAdapter adapter, RepositoryService repositoryService) {
 		this.converter = converter;
 		this.adapter = adapter;
-		this.gateway = gateway;
+		this.repositoryService = repositoryService;
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class DBClient implements Client {
 		try{
 			QueryConvertedStatement convertedStatement = converter.convert(query);
 			AdoptedStatement adoptedStatement = adapter.adopt(convertedStatement);
-			return gateway.execute(adoptedStatement);
+			return repositoryService.execute(adoptedStatement);
 		} catch (InvalidSQLException e) {
 			return QueryExecutionResult.from(e);
 		} catch (UnsupportedOperationException e) {

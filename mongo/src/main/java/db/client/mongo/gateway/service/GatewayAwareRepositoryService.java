@@ -2,7 +2,7 @@ package db.client.mongo.gateway.service;
 
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.gateway.contract.DropGateway;
-import db.client.mongo.gateway.contract.Gateway;
+import db.client.mongo.gateway.contract.RepositoryService;
 import db.client.mongo.gateway.contract.InsertGateway;
 import db.client.mongo.gateway.contract.SelectGateway;
 import db.client.mongo.gateway.contract.UpdateGateway;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RepositoryService implements Gateway {
+public class GatewayAwareRepositoryService implements RepositoryService {
 
 	private final SelectGateway selectGateway;
 	private final InsertGateway insertGateway;
@@ -19,10 +19,10 @@ public class RepositoryService implements Gateway {
 	private final DropGateway dropGateway;
 
 	@Autowired
-	public RepositoryService(SelectGateway selectGateway,
-							 InsertGateway insertGateway,
-							 UpdateGateway updateGateway,
-							 DropGateway dropGateway) {
+	public GatewayAwareRepositoryService(SelectGateway selectGateway,
+										 InsertGateway insertGateway,
+										 UpdateGateway updateGateway,
+										 DropGateway dropGateway) {
 		this.selectGateway = selectGateway;
 		this.insertGateway = insertGateway;
 		this.updateGateway = updateGateway;
