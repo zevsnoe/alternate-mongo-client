@@ -65,19 +65,20 @@ public class SelectStatementConverter implements SelectConverter {
 		}
 
 		@Override
-		public void visit(AllColumns allColumns) {
-			if (fields.size() > 0)
+		public void visit(AllColumns element) {
+			if (fields.size() > 0) {
 				throw new UnsupportedOperationException("Can't select * and fields in the same query");
+			}
 		}
 
 		@Override
-		public void visit(AllTableColumns allTableColumns) {
-			throw new UnsupportedOperationException("Unknown select item: " + allTableColumns);
+		public void visit(AllTableColumns element) {
+			throw new UnsupportedOperationException("Unknown select item: " + element);
 		}
 
 		@Override
-		public void visit(SelectExpressionItem item) {
-			fields.add(toFieldName(item.getExpression()));
+		public void visit(SelectExpressionItem element) {
+			fields.add(toFieldName(element.getExpression()));
 		}
 	}
 }

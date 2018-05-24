@@ -5,7 +5,8 @@ import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.adapter.statement.SelectAdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.validator.InvalidStatementException;
-import org.junit.Assert;
+import db.client.mongo.validator.MongoGatewayException;
+import org.bson.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -29,7 +30,8 @@ public class SimpleSelectGatewayTest {
 	private DBAwared client;
 
 	@Mock
-	private MongoCollection collection;
+	@SuppressWarnings("unchecked")
+	private MongoCollection<Document> collection;
 
 	@Spy
 	SelectAdoptedStatement selectAdoptedStatement;
@@ -39,12 +41,13 @@ public class SimpleSelectGatewayTest {
 		gateway.select(mock(AdoptedStatement.class));
 	}
 
-	@Test
+	@Test(expected = MongoGatewayException.class)
 	public void invalidResult(){
 		when(selectAdoptedStatement.getCollectionName()).thenReturn(COLLECTION_NAME);
 		when(client.getCollection(eq(COLLECTION_NAME))).thenReturn(collection);
-		Object select = gateway.select(selectAdoptedStatement);
-		Assert.assertEquals("Internal error: null", select.toString());
+		gateway.select(selectAdoptedStatement);
 	}
+
+	//...
 
 }

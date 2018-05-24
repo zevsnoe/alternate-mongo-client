@@ -1,12 +1,13 @@
 package db.client.mongo.client;
 
 import db.client.contract.client.Client;
+import db.client.contract.client.QueryExecutionResult;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.Adapter;
 import db.client.mongo.converter.contract.QueryConverter;
 import db.client.mongo.gateway.contract.RepositoryService;
-import db.client.mongo.gateway.result.QueryExecutionResult;
+import db.client.mongo.gateway.result.QueryExecutionResultBuilder;
 import db.client.mongo.validator.InvalidSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,15 +30,17 @@ public class DBClient implements Client {
 	}
 
 	@Override
-	public Object execute(String query) {
+	public QueryExecutionResult execute(String query) {
 		try{
 			QueryConvertedStatement convertedStatement = converter.convert(query);
 			AdoptedStatement adoptedStatement = adapter.adopt(convertedStatement);
 			return repositoryService.execute(adoptedStatement);
 		} catch (InvalidSQLException e) {
-			return QueryExecutionResult.invalidQuery(e);
+			return QueryExecutionResultBuilder.invalidQuery(e);
 		} catch (UnsupportedOperationException e) {
-			return QueryExecutionResult.notSupported(e);
+			return QueryExecutionResultBuilder.notSupported(e);
+		} catch (Exception e) {
+			return QueryExecutionResultBuilder.internalError(e);
 		}
 	}
 

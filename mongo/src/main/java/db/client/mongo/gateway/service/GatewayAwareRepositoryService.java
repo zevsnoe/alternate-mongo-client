@@ -1,5 +1,6 @@
 package db.client.mongo.gateway.service;
 
+import db.client.contract.client.QueryExecutionResult;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.gateway.contract.DropGateway;
 import db.client.mongo.gateway.contract.RepositoryService;
@@ -30,7 +31,7 @@ public class GatewayAwareRepositoryService implements RepositoryService {
 	}
 
 	@Override
-	public Object execute(AdoptedStatement adoptedStatement) {
+	public QueryExecutionResult execute(AdoptedStatement adoptedStatement) {
 		switch(adoptedStatement.getType()) {
 			case SELECT: return selectGateway.select(adoptedStatement);
 			case INSERT: return insertGateway.insert(adoptedStatement);

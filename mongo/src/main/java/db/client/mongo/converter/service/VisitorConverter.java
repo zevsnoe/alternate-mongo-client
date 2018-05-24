@@ -76,10 +76,10 @@ public class VisitorConverter implements Converter {
 			statement = dropConverter.convert(drop);
 		}
 
-		public void visit(Delete delete) { throw new UnsupportedOperationException(); }
-		public void visit(Replace replace) { throw new UnsupportedOperationException(); }
-		public void visit(Truncate truncate) { throw new UnsupportedOperationException(); }
-		public void visit(CreateTable createTable) { throw new UnsupportedOperationException(); }
+		public void visit(Delete delete) { throw new UnsupportedOperationException(delete.getClass().getSimpleName()); }
+		public void visit(Replace replace) { throw new UnsupportedOperationException(replace.getClass().getSimpleName()); }
+		public void visit(Truncate truncate) { throw new UnsupportedOperationException(truncate.getClass().getSimpleName()); }
+		public void visit(CreateTable createTable) { throw new UnsupportedOperationException(createTable.getClass().getSimpleName()); }
 	}
 
 }

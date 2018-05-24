@@ -1,7 +1,8 @@
 package db.client.mongo.gateway.contract;
 
+import db.client.contract.client.QueryExecutionResult;
 import db.client.contract.mongo.AdoptedStatement;
 
 public interface UpdateGateway {
-	Object update(AdoptedStatement statement);
+	QueryExecutionResult update(AdoptedStatement statement);
 }
