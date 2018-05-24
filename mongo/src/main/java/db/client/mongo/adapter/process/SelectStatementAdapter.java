@@ -31,11 +31,11 @@ public class SelectStatementAdapter extends WhereStatementAdapter implements Sel
 		return adoptedStatement;
 	}
 
-	private Bson buildFilterFrom(Expression whereExpression) {
+	Bson buildFilterFrom(Expression whereExpression) {
 		return adoptWhereStatement(whereExpression);
 	}
 
-	private Bson buildProjectionsFrom(SelectConvertedStatement statement) {
+	Bson buildProjectionsFrom(SelectConvertedStatement statement) {
 		if (statement.hasIds()) {
 			return projectionsWithIds(statement);
 		} else {
@@ -43,11 +43,11 @@ public class SelectStatementAdapter extends WhereStatementAdapter implements Sel
 		}
 	}
 
-	public Bson projections(SelectConvertedStatement statement) {
+	private Bson projections(SelectConvertedStatement statement) {
 		return fields(include(statement.getProjections()), excludeId());
 	}
 
-	public Bson projectionsWithIds(SelectConvertedStatement statement) {
+	private Bson projectionsWithIds(SelectConvertedStatement statement) {
 		return fields(include(statement.getProjections()));
 	}
 
