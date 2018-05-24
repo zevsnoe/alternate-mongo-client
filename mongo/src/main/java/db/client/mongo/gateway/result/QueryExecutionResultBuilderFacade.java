@@ -10,90 +10,75 @@ import db.client.mongo.gateway.result.failed.FailedDropQueryExecutionResult;
 import db.client.mongo.gateway.result.failed.FailedInsertQueryExecutionResult;
 import db.client.mongo.gateway.result.failed.FailedQueryExecutionResult;
 import db.client.mongo.gateway.result.failed.FailedSelectQueryExecutionResult;
-import db.client.mongo.gateway.result.failed.FailedUpdateQueryExecutionResult;
-import db.client.mongo.gateway.result.success.DropQueryExecutionResult;
-import db.client.mongo.gateway.result.success.InsertQueryExecutionResult;
-import db.client.mongo.gateway.result.success.SelectQueryExecutionResult;
-import db.client.mongo.gateway.result.success.UpdateQueryExecutionResult;
 import db.client.mongo.validator.InvalidSQLException;
 import db.client.mongo.validator.MongoClientException;
 
-import java.util.ArrayList;
-import java.util.List;
+public class QueryExecutionResultBuilderFacade {
 
-public class QueryExecutionResultBuilder {
-
-	//SELECT
 	public static QueryExecutionResult selectSuccessfull(MongoCursor cursor) {
-		List list = new ArrayList<>();
-		while(cursor.hasNext()) list.add(cursor.next());
-		return new SelectQueryExecutionResult(list);
+		return SelectQueryExecutionResultBuilder.selectSuccessfull(cursor);
 	}
 
 	public static FailedSelectQueryExecutionResult selectFailed(MongoClientException e) {
-		return new FailedSelectQueryExecutionResult(e);
+		return SelectQueryExecutionResultBuilder.selectFailed(e);
 	}
 
 	public static FailedSelectQueryExecutionResult selectFailed(Exception e) {
-		return new FailedSelectQueryExecutionResult(e);
+		return SelectQueryExecutionResultBuilder.selectFailed(e);
 	}
 
-	//INSERT
 	public static QueryExecutionResult insertSuccessfull(WriteResult writeResult) {
-		return new InsertQueryExecutionResult(writeResult);
+		return InsertQueryExecutionResultBuilder.insertSuccessfull(writeResult);
 	}
 
 	public static FailedInsertQueryExecutionResult insertFailed(IllegalArgumentException e) {
-		return new FailedInsertQueryExecutionResult(e);
+		return InsertQueryExecutionResultBuilder.insertFailed(e);
 	}
 
 	public static FailedInsertQueryExecutionResult insertFailed(MongoWriteException e) {
-		return new FailedInsertQueryExecutionResult(e);
+		return InsertQueryExecutionResultBuilder.insertFailed(e);
 	}
 
 	public static FailedInsertQueryExecutionResult insertFailed(MongoBulkWriteException e) {
-		return new FailedInsertQueryExecutionResult(e);
+		return InsertQueryExecutionResultBuilder.insertFailed(e);
 	}
 
 	public static FailedInsertQueryExecutionResult insertFailed(Exception e) {
-		return new FailedInsertQueryExecutionResult(e);
+		return InsertQueryExecutionResultBuilder.insertFailed(e);
 	}
 
-	//UPDATE
 	public static QueryExecutionResult updateSuccessfull(UpdateResult updateResult) {
-		return new UpdateQueryExecutionResult(updateResult);
+		return UpdateQueryExecutionResultBuilder.updateSuccessfull(updateResult);
 	}
 
 	public static QueryExecutionResult updateFailed(IllegalArgumentException e) {
-		return new FailedUpdateQueryExecutionResult(e);
+		return UpdateQueryExecutionResultBuilder.updateFailed(e);
 	}
 
 	public static QueryExecutionResult updateFailed(MongoBulkWriteException e) {
-		return new FailedUpdateQueryExecutionResult(e);
+		return UpdateQueryExecutionResultBuilder.updateFailed(e);
 	}
 
 	public static QueryExecutionResult updateFailed(MongoWriteException e) {
-		return new FailedUpdateQueryExecutionResult(e);
+		return UpdateQueryExecutionResultBuilder.updateFailed(e);
 	}
 
 	public static QueryExecutionResult updateFailed(Exception e) {
-		return new FailedUpdateQueryExecutionResult(e);
+		return UpdateQueryExecutionResultBuilder.updateFailed(e);
 	}
 
-	//DROP
 	public static QueryExecutionResult dropSuccessfull(String name) {
-		return new DropQueryExecutionResult(name);
+		return DropQueryExecutionResultBuilder.dropSuccessfull(name);
 	}
 
 	public static FailedDropQueryExecutionResult dropFailed(String name) {
-		return new FailedDropQueryExecutionResult(name);
+		return DropQueryExecutionResultBuilder.dropFailed(name);
 	}
 
 	public static QueryExecutionResult dropFailed(Exception e) {
-		return new FailedDropQueryExecutionResult(e);
+		return DropQueryExecutionResultBuilder.dropFailed(e);
 	}
 
-	//OTHER
 	public static FailedQueryExecutionResult invalidQuery(InvalidSQLException e) {
 		return new FailedQueryExecutionResult(e);
 	}

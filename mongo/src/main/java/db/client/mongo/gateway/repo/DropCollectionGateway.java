@@ -6,7 +6,7 @@ import db.client.contract.client.QueryExecutionResult;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.contract.DropGateway;
-import db.client.mongo.gateway.result.QueryExecutionResultBuilder;
+import db.client.mongo.gateway.result.QueryExecutionResultBuilderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,11 +26,11 @@ public class DropCollectionGateway implements DropGateway {
 		MongoCollection collection = client.getCollection(collectionName);
 		try {
 			collection.drop();
-			return QueryExecutionResultBuilder.dropSuccessfull(collectionName);
+			return QueryExecutionResultBuilderFacade.dropSuccessfull(collectionName);
 		} catch(MongoException e) {
-			return QueryExecutionResultBuilder.dropFailed(collectionName);
+			return QueryExecutionResultBuilderFacade.dropFailed(collectionName);
 		} catch (Exception e) {
-			return QueryExecutionResultBuilder.dropFailed(e);
+			return QueryExecutionResultBuilderFacade.dropFailed(e);
 		}
 
 	}

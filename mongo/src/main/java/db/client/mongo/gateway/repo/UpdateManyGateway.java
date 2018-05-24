@@ -8,7 +8,7 @@ import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.adapter.statement.UpdateManyAdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.contract.UpdateGateway;
-import db.client.mongo.gateway.result.QueryExecutionResultBuilder;
+import db.client.mongo.gateway.result.QueryExecutionResultBuilderFacade;
 import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,15 +31,15 @@ public class UpdateManyGateway implements UpdateGateway {
 		MongoCollection collection = client.getCollection(statement.getCollectionName());
 		Bson elements = combine(updateStatement.getUpdateElements());
 		try {
-			return QueryExecutionResultBuilder.updateSuccessfull(collection.updateMany(updateStatement.getFilter(), elements));
+			return QueryExecutionResultBuilderFacade.updateSuccessfull(collection.updateMany(updateStatement.getFilter(), elements));
 		} catch (IllegalArgumentException e) {
-			return QueryExecutionResultBuilder.updateFailed(e);
+			return QueryExecutionResultBuilderFacade.updateFailed(e);
 		} catch (MongoBulkWriteException e) {
-			return QueryExecutionResultBuilder.updateFailed(e);
+			return QueryExecutionResultBuilderFacade.updateFailed(e);
 		} catch (MongoWriteException e) {
-			return QueryExecutionResultBuilder.updateFailed(e);
+			return QueryExecutionResultBuilderFacade.updateFailed(e);
 		} catch (Exception e) {
-			return QueryExecutionResultBuilder.updateFailed(e);
+			return QueryExecutionResultBuilderFacade.updateFailed(e);
 		}
 	}
 }

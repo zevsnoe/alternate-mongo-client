@@ -6,7 +6,7 @@ import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.adapter.statement.SelectAdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.contract.SelectGateway;
-import db.client.mongo.gateway.result.QueryExecutionResultBuilder;
+import db.client.mongo.gateway.result.QueryExecutionResultBuilderFacade;
 import db.client.mongo.validator.InvalidStatementException;
 import db.client.mongo.validator.MongoClientException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,13 @@ public class SimpleSelectGateway implements SelectGateway {
 
 		try {
 			MongoCollection collection = client.getCollection(statement.getCollectionName());
-			return QueryExecutionResultBuilder.selectSuccessfull(collection.find(selectStatement.getFilter())
+			return QueryExecutionResultBuilderFacade.selectSuccessfull(collection.find(selectStatement.getFilter())
 					.projection(selectStatement.getProjections())
 					.iterator());
 		} catch (MongoClientException e) {
-			return QueryExecutionResultBuilder.selectFailed(e);
+			return QueryExecutionResultBuilderFacade.selectFailed(e);
 		} catch (Exception e) {
-			return QueryExecutionResultBuilder.selectFailed(e);
+			return QueryExecutionResultBuilderFacade.selectFailed(e);
 		}
 	}
 

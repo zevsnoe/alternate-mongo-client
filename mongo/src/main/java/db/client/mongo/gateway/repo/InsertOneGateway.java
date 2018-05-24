@@ -9,7 +9,7 @@ import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.adapter.statement.InsertSingleAdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.contract.InsertGateway;
-import db.client.mongo.gateway.result.QueryExecutionResultBuilder;
+import db.client.mongo.gateway.result.QueryExecutionResultBuilderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,15 +30,15 @@ public class InsertOneGateway implements InsertGateway {
 		try {
 			collection.insertOne(insertStatement.getDocument());
 			WriteResult writeResult = new WriteResult(1, false, null);
-			return QueryExecutionResultBuilder.insertSuccessfull(writeResult);
+			return QueryExecutionResultBuilderFacade.insertSuccessfull(writeResult);
 		} catch (IllegalArgumentException e) {
-			return QueryExecutionResultBuilder.insertFailed(e);
+			return QueryExecutionResultBuilderFacade.insertFailed(e);
 		} catch (MongoWriteException e) {
-			return QueryExecutionResultBuilder.insertFailed(e);
+			return QueryExecutionResultBuilderFacade.insertFailed(e);
 		} catch (MongoBulkWriteException e) {
-			return QueryExecutionResultBuilder.insertFailed(e);
+			return QueryExecutionResultBuilderFacade.insertFailed(e);
 		} catch (Exception e) {
-			return QueryExecutionResultBuilder.insertFailed(e);
+			return QueryExecutionResultBuilderFacade.insertFailed(e);
 		}
 	}
 }
