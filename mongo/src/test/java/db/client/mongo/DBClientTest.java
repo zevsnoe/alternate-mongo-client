@@ -54,6 +54,16 @@ public class DBClientTest {
 		dbClient.execute(query);
 	}
 
+	@Test(expected = MongoGatewayException.class)
+	public void internalError(){
+		QueryConvertedStatement convertedStatement = mock(QueryConvertedStatement.class);
+		AdoptedStatement adoptedStatement = mock(AdoptedStatement.class);
+		when(converter.convert(eq(query))).thenReturn(convertedStatement);
+		when(adapter.adopt(eq(convertedStatement))).thenReturn(adoptedStatement);
+		when(gateway.execute(eq(adoptedStatement))).thenThrow(new RuntimeException("Internal error"));
+		dbClient.execute(query);
+	}
+
 	@Test
 	public void executionSuccessful(){
 		QueryConvertedStatement convertedStatement = mock(QueryConvertedStatement.class);
