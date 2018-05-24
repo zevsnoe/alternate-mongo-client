@@ -3,6 +3,7 @@ package db.client.console;
 import db.client.contract.client.Client;
 import db.client.contract.client.ClientFactory;
 import db.client.contract.client.Interactor;
+import db.client.contract.client.QueryExecutionResult;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -31,9 +32,9 @@ public class ConsoleApplication {
 		System.out.println("Input query bellow: ");
 		while(scanner.hasNext()) {
 			String string = scanner.nextLine();
-			Object o = interactor.interactWith(client, string);
+			QueryExecutionResult queryExecutionResult = interactor.interactWith(client, string);
 			System.out.println("");
-			System.out.println(o);
+			System.out.println(queryExecutionResult.getResult());
 		}
 
 		System.exit(0);
