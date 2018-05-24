@@ -25,8 +25,8 @@ public class MongoDBAwared implements DBAwared {
 
 	@PostConstruct
 	public void setDataBase() {
-		MongoClient mongoClient = new MongoClient(config.getHost(), config.getPort());
-		this.database = mongoClient.getDatabase(config.getName());
+		MongoClient mongoClient = new MongoClient(config.host, config.port);
+		this.database = mongoClient.getDatabase(config.name);
 	}
 
 	@Override

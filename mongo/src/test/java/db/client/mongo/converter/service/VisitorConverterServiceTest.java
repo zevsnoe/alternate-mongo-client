@@ -10,6 +10,9 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
+import net.sf.jsqlparser.statement.delete.Delete;
+import net.sf.jsqlparser.statement.replace.Replace;
+import net.sf.jsqlparser.statement.truncate.Truncate;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,6 +75,21 @@ public class VisitorConverterServiceTest {
 	@Test(expected = MongoSQLConverterException.class)
 	public void visitCreateNotSupported()  {
 		converter.convert(spy(CreateTable.class));
+	}
+
+	@Test(expected = MongoSQLConverterException.class)
+	public void visitDeleteNotSupported()  {
+		converter.convert(spy(Delete.class));
+	}
+
+	@Test(expected = MongoSQLConverterException.class)
+	public void visitReplaceNotSupported()  {
+		converter.convert(spy(Replace.class));
+	}
+
+	@Test(expected = MongoSQLConverterException.class)
+	public void visitTruncateNotSupported()  {
+		converter.convert(spy(Truncate.class));
 	}
 
 	private void test(QueryConvertedStatement convert, String s) throws JSQLParserException {

@@ -14,7 +14,7 @@ public class DropStatementAdapter implements DropAdapter {
 
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {
-		if (!(statement instanceof InsertConvertedStatement))
+		if (!(statement instanceof DropConvertedStatement))
 			throw new MongoClientException("Wrong statement type - should be " + DropConvertedStatement.class);
 		DropAdoptedStatement dropAdoptedStatement = new DropAdoptedStatement();
 		dropAdoptedStatement.setCollectionName(statement.getCollectionName());
