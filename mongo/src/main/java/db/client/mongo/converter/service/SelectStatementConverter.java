@@ -3,6 +3,7 @@ package db.client.mongo.converter.service;
 import db.client.mongo.converter.contract.SelectConverter;
 import db.client.mongo.converter.statement.ConvertedStatement;
 import db.client.mongo.converter.statement.SelectConvertedStatement;
+import db.client.mongo.validator.MongoSQLConverterException;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.AllColumns;
@@ -24,6 +25,8 @@ public class SelectStatementConverter implements SelectConverter {
 
 	@Override
 	public ConvertedStatement convert(Statement statement) {
+		if (!(statement instanceof Select))
+			throw new MongoSQLConverterException("Statement is of wrong type.");
 		Select select = (Select) statement;
 		PlainSelect plainSelect = validateAndGetSelectBody(select);
 
