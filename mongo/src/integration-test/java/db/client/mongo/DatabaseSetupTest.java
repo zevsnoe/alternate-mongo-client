@@ -3,9 +3,11 @@ package db.client.mongo;
 import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import db.client.contract.client.QueryExecutionResult;
 import db.client.mongo.client.DBClient;
 import db.client.mongo.client.DBConfig;
 import db.client.mongo.gateway.aware.MongoDBAwared;
+import db.client.mongo.gateway.result.success.SelectQueryExecutionResult;
 import org.bson.Document;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,9 +55,9 @@ public class DatabaseSetupTest {
 	@Test
 	public void testDBClient() {
 		dbclient.execute("insert into test_collection("+NAME+", "+VALUE+") values('"+NAME+"', '"+VALUE+"')");
-		Object selectResult = dbclient.execute("select * from test_collection");
+		QueryExecutionResult selectResult = dbclient.execute("select * from test_collection");
 		dbclient.execute("drop table test_collection");
-		List<Document> documents = (List<Document>) selectResult;
+		List<Document> documents = ((SelectQueryExecutionResult)selectResult).getResult();
 		for (Document document : documents) {
 			Assert.assertEquals(NAME, document.get(NAME));
 			Assert.assertEquals(VALUE, document.get(VALUE));

@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
 @Configuration
-@ComponentScan(basePackages = {"db.client.mongo.converter",
-							   "db.client.mongo.adapter",
-							   "db.client.mongo.gateway",
-							   "db.client.mongo.client",
+@ComponentScan(basePackages = {"db.client.mongo.converter", //converts query string to adapter friendly data structure
+							   "db.client.mongo.adapter",   //adopts converted data to gateway specific data structure
+							   "db.client.mongo.gateway",   //db gateway for executing scripts
+							   "db.client.mongo.client",    //db client
 							  })
 @Lazy
 public class ClientConfiguration {}

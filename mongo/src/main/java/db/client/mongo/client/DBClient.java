@@ -31,7 +31,7 @@ public class DBClient implements Client {
 
 	@Override
 	public QueryExecutionResult execute(String query) {
-		try{
+		try {
 			QueryConvertedStatement convertedStatement = converter.convert(query);
 			AdoptedStatement adoptedStatement = adapter.adopt(convertedStatement);
 			return repositoryService.execute(adoptedStatement);
