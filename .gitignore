@@ -1,6 +1,5 @@
 .gradle
 /build/
-/out/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -25,3 +24,14 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+api/build/
+api/out/
+app/build/
+app/out/
+console/build/
+console/out/
+contract/build/
+contract/out/
+gradle/
+mongo/build/
+mongo/out/
