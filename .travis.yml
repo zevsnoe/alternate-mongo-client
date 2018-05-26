@@ -21,6 +21,7 @@ services: mongodb
 deploy:
   provider: pages
   skip-cleanup: true
+  file: build/libs/db_client_rest_api-0.1.jar
   github-token: $GITHUB_TOKEN
   keep-history: true
 on:
