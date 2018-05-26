@@ -4,6 +4,7 @@ import db.client.contract.client.Client;
 import db.client.contract.client.ClientFactory;
 import db.client.contract.client.Interactor;
 import db.client.contract.client.QueryExecutionResult;
+import db.client.mongo.validator.MongoGatewayException;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -32,9 +33,12 @@ public class ConsoleApplication {
 		System.out.println("Input query bellow: ");
 		while(scanner.hasNext()) {
 			String string = scanner.nextLine();
-			QueryExecutionResult queryExecutionResult = interactor.interactWith(client, string);
-			System.out.println("");
-			System.out.println(queryExecutionResult.getResult());
+			try {
+				QueryExecutionResult queryExecutionResult = interactor.interactWith(client, string);
+				System.out.println("");
+				System.out.println(queryExecutionResult.getResult());
+			} catch (MongoGatewayException e) {}
+
 		}
 
 		System.exit(0);
