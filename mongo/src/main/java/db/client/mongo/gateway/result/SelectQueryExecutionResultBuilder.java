@@ -1,10 +1,10 @@
 package db.client.mongo.gateway.result;
 
+import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCursor;
 import db.client.contract.client.QueryExecutionResult;
 import db.client.mongo.gateway.result.failed.FailedSelectQueryExecutionResult;
 import db.client.mongo.gateway.result.success.SelectQueryExecutionResult;
-import db.client.mongo.validator.MongoClientException;
 
 import java.util.ArrayList;
 import java.util.List;

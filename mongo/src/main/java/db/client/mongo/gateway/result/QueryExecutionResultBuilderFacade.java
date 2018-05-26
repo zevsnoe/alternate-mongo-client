@@ -1,6 +1,7 @@
 package db.client.mongo.gateway.result;
 
 import com.mongodb.MongoBulkWriteException;
+import com.mongodb.MongoClientException;
 import com.mongodb.MongoException;
 import com.mongodb.MongoWriteConcernException;
 import com.mongodb.MongoWriteException;
@@ -14,7 +15,6 @@ import db.client.mongo.gateway.result.failed.FailedInsertQueryExecutionResult;
 import db.client.mongo.gateway.result.failed.FailedQueryExecutionResult;
 import db.client.mongo.gateway.result.failed.FailedSelectQueryExecutionResult;
 import db.client.mongo.validator.InvalidSQLException;
-import db.client.mongo.validator.MongoClientException;
 
 public class QueryExecutionResultBuilderFacade {
 
@@ -96,6 +96,10 @@ public class QueryExecutionResultBuilderFacade {
 
 	public static QueryExecutionResult deleteSuccesful(DeleteResult deleteResult) {
 		return DeleteQueryExecutionResultBuilder.deleteSuccessful(deleteResult);
+	}
+
+	public static QueryExecutionResult deleteFailed(MongoClientException e) {
+		return DeleteQueryExecutionResultBuilder.deleteFailed(e);
 	}
 
 	public static QueryExecutionResult deleteFailed(MongoWriteException e) {

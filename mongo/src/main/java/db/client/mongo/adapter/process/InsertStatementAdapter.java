@@ -5,7 +5,7 @@ import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.InsertAdapter;
 import db.client.mongo.adapter.statement.InsertSingleAdoptedStatement;
 import db.client.mongo.converter.statement.InsertConvertedStatement;
-import db.client.mongo.validator.MongoClientException;
+import db.client.mongo.validator.MongoSQLAdapterException;
 import javafx.util.Pair;
 import org.bson.Document;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class InsertStatementAdapter implements InsertAdapter {
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {
 		if (!(statement instanceof InsertConvertedStatement))
-			throw new MongoClientException("Wrong statement type - should be " + InsertConvertedStatement.class);
+			throw new MongoSQLAdapterException("Wrong statement type - should be " + InsertConvertedStatement.class);
 		InsertSingleAdoptedStatement adoptedStatement = new InsertSingleAdoptedStatement();
 		adoptedStatement.setCollectionName(statement.getCollectionName());
 		adoptedStatement.setDocument(from((InsertConvertedStatement)statement));

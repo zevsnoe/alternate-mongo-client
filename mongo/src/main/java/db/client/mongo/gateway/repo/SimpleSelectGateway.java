@@ -1,5 +1,6 @@
 package db.client.mongo.gateway.repo;
 
+import com.mongodb.MongoClientException;
 import com.mongodb.client.MongoCollection;
 import db.client.contract.client.QueryExecutionResult;
 import db.client.contract.mongo.AdoptedStatement;
@@ -8,7 +9,6 @@ import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.contract.SelectGateway;
 import db.client.mongo.gateway.result.QueryExecutionResultBuilderFacade;
 import db.client.mongo.validator.InvalidStatementException;
-import db.client.mongo.validator.MongoClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

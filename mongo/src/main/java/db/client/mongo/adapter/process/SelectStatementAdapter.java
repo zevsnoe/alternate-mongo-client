@@ -6,7 +6,7 @@ import db.client.mongo.adapter.contract.SelectAdapter;
 import db.client.mongo.adapter.statement.SelectAdoptedStatement;
 import db.client.mongo.adapter.process.where.WhereStatementAdapter;
 import db.client.mongo.converter.statement.SelectConvertedStatement;
-import db.client.mongo.validator.MongoClientException;
+import db.client.mongo.validator.MongoSQLAdapterException;
 import net.sf.jsqlparser.expression.Expression;
 import org.bson.conversions.Bson;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class SelectStatementAdapter extends WhereStatementAdapter implements Sel
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {
 		if (!(statement instanceof SelectConvertedStatement))
-			throw new MongoClientException("Wrong statement type - should be " + SelectConvertedStatement.class);
+			throw new MongoSQLAdapterException("Wrong statement type - should be " + SelectConvertedStatement.class);
 		SelectConvertedStatement selectStatement = (SelectConvertedStatement) statement;
 
 		SelectAdoptedStatement adoptedStatement = new SelectAdoptedStatement();

@@ -9,7 +9,6 @@ import db.client.mongo.adapter.statement.SelectAdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
 import db.client.mongo.gateway.result.success.SelectQueryExecutionResult;
 import db.client.mongo.validator.InvalidStatementException;
-import db.client.mongo.validator.MongoClientException;
 import db.client.mongo.validator.MongoGatewayException;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -52,7 +51,6 @@ public class SimpleSelectGatewayTest {
 	@Test(expected = MongoGatewayException.class)
 	public void clientError(){
 		when(selectAdoptedStatement.getCollectionName()).thenReturn(COLLECTION_NAME);
-		when(client.getCollection(eq(COLLECTION_NAME))).thenThrow(new MongoClientException("error"));
 		gateway.select(selectAdoptedStatement);
 	}
 

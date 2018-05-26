@@ -1,7 +1,7 @@
 package db.client.mongo.gateway.result.failed;
 
+import com.mongodb.MongoClientException;
 import db.client.contract.client.QueryExecutionResult;
-import db.client.mongo.validator.MongoClientException;
 import db.client.mongo.validator.MongoGatewayException;
 
 public class FailedSelectQueryExecutionResult implements QueryExecutionResult {

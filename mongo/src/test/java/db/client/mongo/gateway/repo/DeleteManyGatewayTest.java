@@ -1,11 +1,16 @@
 package db.client.mongo.gateway.repo;
 
+import com.mongodb.client.MongoCollection;
+import db.client.contract.client.QueryExecutionResult;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.mongo.adapter.statement.DeleteManyAdoptedStatement;
 import db.client.mongo.gateway.contract.DBAwared;
+import db.client.mongo.gateway.result.success.DeleteQueryExecutionResult;
 import db.client.mongo.validator.InvalidStatementException;
-import db.client.mongo.validator.MongoClientException;
 import db.client.mongo.validator.MongoGatewayException;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,6 +33,10 @@ public class DeleteManyGatewayTest {
 	@Mock
 	private DBAwared client;
 
+	@Mock
+	@SuppressWarnings("unchecked")
+	private MongoCollection<Document> collection;
+
 	@Spy
 	DeleteManyAdoptedStatement deleteAdoptedStatement;
 
@@ -39,8 +48,17 @@ public class DeleteManyGatewayTest {
 	@Test(expected = MongoGatewayException.class)
 	public void clientError(){
 		when(deleteAdoptedStatement.getCollectionName()).thenReturn(COLLECTION_NAME);
-		when(client.getCollection(eq(COLLECTION_NAME))).thenThrow(new MongoClientException("error"));
 		gateway.delete(deleteAdoptedStatement);
+	}
+
+	@Test
+	public void fullExecution(){
+		when(deleteAdoptedStatement.getCollectionName()).thenReturn(COLLECTION_NAME);
+		when(deleteAdoptedStatement.getFilter()).thenReturn(mock(Bson.class));
+		when(client.getCollection(eq(COLLECTION_NAME))).thenReturn(collection);
+
+		QueryExecutionResult delete = gateway.delete(deleteAdoptedStatement);
+		Assert.assertTrue(delete instanceof DeleteQueryExecutionResult);
 	}
 
 }

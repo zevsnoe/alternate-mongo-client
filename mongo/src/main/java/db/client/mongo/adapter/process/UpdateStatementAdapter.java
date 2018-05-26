@@ -6,7 +6,7 @@ import db.client.mongo.adapter.contract.UpdateAdapter;
 import db.client.mongo.adapter.statement.UpdateManyAdoptedStatement;
 import db.client.mongo.adapter.process.where.WhereStatementAdapter;
 import db.client.mongo.converter.statement.UpdateConvertedStatement;
-import db.client.mongo.validator.MongoClientException;
+import db.client.mongo.validator.MongoSQLAdapterException;
 import javafx.util.Pair;
 import net.sf.jsqlparser.expression.Expression;
 import org.bson.conversions.Bson;
@@ -23,7 +23,7 @@ public class UpdateStatementAdapter extends WhereStatementAdapter implements Upd
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {
 		if (!(statement instanceof UpdateConvertedStatement))
-			throw new MongoClientException("Wrong statement type - should be " + UpdateConvertedStatement.class);
+			throw new MongoSQLAdapterException("Wrong statement type - should be " + UpdateConvertedStatement.class);
 		UpdateConvertedStatement updateStatement = (UpdateConvertedStatement) statement;
 
 		UpdateManyAdoptedStatement adoptedStatement = new UpdateManyAdoptedStatement();

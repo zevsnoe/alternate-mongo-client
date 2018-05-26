@@ -6,7 +6,7 @@ import db.client.mongo.adapter.contract.DeleteAdapter;
 import db.client.mongo.adapter.process.where.WhereStatementAdapter;
 import db.client.mongo.adapter.statement.DeleteManyAdoptedStatement;
 import db.client.mongo.converter.statement.DeleteConvertedStatement;
-import db.client.mongo.validator.MongoClientException;
+import db.client.mongo.validator.MongoSQLAdapterException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +15,7 @@ public class DeleteStatementAdapter extends WhereStatementAdapter implements Del
 	@Override
 	public AdoptedStatement adopt(QueryConvertedStatement statement) {
 		if (!(statement instanceof DeleteConvertedStatement))
-			throw new MongoClientException("Wrong statement type - should be " + DeleteConvertedStatement.class);
+			throw new MongoSQLAdapterException("Wrong statement type - should be " + DeleteConvertedStatement.class);
 		DeleteConvertedStatement deleteStatement = (DeleteConvertedStatement) statement;
 
 		DeleteManyAdoptedStatement adoptedStatement = new DeleteManyAdoptedStatement();
