@@ -3,6 +3,7 @@ package db.client.mongo.adapter;
 import db.client.contract.StatementType;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.Adapter;
+import db.client.mongo.adapter.contract.DeleteAdapter;
 import db.client.mongo.adapter.contract.DropAdapter;
 import db.client.mongo.adapter.contract.InsertAdapter;
 import db.client.mongo.adapter.contract.SelectAdapter;
@@ -13,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static db.client.contract.StatementType.DELETE;
 import static db.client.contract.StatementType.DROP;
 import static db.client.contract.StatementType.INSERT;
 import static db.client.contract.StatementType.SELECT;
@@ -42,6 +44,9 @@ public class StatementQueryAdapterTest {
 	@Mock
 	private SelectAdapter selectAdapter;
 
+	@Mock
+	private DeleteAdapter deleteAdapter;
+
 	@Test
 	public void adoptWithDropAdapter(){
 		verifyTheRightAdapterFor(DROP, dropAdapter);
@@ -60,6 +65,11 @@ public class StatementQueryAdapterTest {
 	@Test
 	public void adoptWithSelectAdapter(){
 		verifyTheRightAdapterFor(SELECT, selectAdapter);
+	}
+
+	@Test
+	public void adoptWithDeleteAdapter(){
+		verifyTheRightAdapterFor(DELETE, deleteAdapter);
 	}
 
 	private void verifyTheRightAdapterFor(StatementType type, Adapter statementAdapter) {

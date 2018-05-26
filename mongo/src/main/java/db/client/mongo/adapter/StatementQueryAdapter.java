@@ -3,6 +3,7 @@ package db.client.mongo.adapter;
 import db.client.contract.mongo.AdoptedStatement;
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.adapter.contract.Adapter;
+import db.client.mongo.adapter.contract.DeleteAdapter;
 import db.client.mongo.adapter.contract.DropAdapter;
 import db.client.mongo.adapter.contract.InsertAdapter;
 import db.client.mongo.adapter.contract.SelectAdapter;
@@ -19,16 +20,19 @@ public class StatementQueryAdapter implements Adapter {
 	private final SelectAdapter selectAdapter;
 	private final InsertAdapter insertAdapter;
 	private final UpdateAdapter updateAdapter;
+	private final DeleteAdapter deleteAdapter;
 	private final DropAdapter dropAdapter;
 
 	@Autowired
 	public StatementQueryAdapter(SelectAdapter selectAdapter,
 								 InsertAdapter insertAdapter,
 								 UpdateAdapter updateAdapter,
+								 DeleteAdapter deleteAdapter,
 								 DropAdapter dropAdapter) {
 		this.selectAdapter = selectAdapter;
 		this.insertAdapter = insertAdapter;
 		this.updateAdapter = updateAdapter;
+		this.deleteAdapter = deleteAdapter;
 		this.dropAdapter = dropAdapter;
 	}
 
@@ -41,6 +45,7 @@ public class StatementQueryAdapter implements Adapter {
 			case INSERT: adoptedStatement = adoptStatementWith(convertedStatement, insertAdapter); break;
 			case UPDATE: adoptedStatement = adoptStatementWith(convertedStatement, updateAdapter); break;
 			case DROP: adoptedStatement = adoptStatementWith(convertedStatement, dropAdapter); break;
+			case DELETE: adoptedStatement = adoptStatementWith(convertedStatement, deleteAdapter); break;
 			default: throw new MongoSQLAdapterException("Undefined Statement");
 		}
 		return adoptedStatement;

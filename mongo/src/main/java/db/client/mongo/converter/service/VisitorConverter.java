@@ -2,6 +2,7 @@ package db.client.mongo.converter.service;
 
 import db.client.contract.mongo.QueryConvertedStatement;
 import db.client.mongo.converter.contract.Converter;
+import db.client.mongo.converter.contract.DeleteConverter;
 import db.client.mongo.converter.contract.DropConverter;
 import db.client.mongo.converter.contract.InsertConverter;
 import db.client.mongo.converter.contract.SelectConverter;
@@ -28,16 +29,19 @@ public class VisitorConverter implements Converter {
 	private final InsertConverter insertConverter;
 	private final UpdateConverter updateConverter;
 	private final SelectConverter selectConverter;
+	private final DeleteConverter deleteConverter;
 	private final DropConverter dropConverter;
 
 	@Autowired
 	public VisitorConverter(InsertConverter insertConverter,
 							UpdateConverter updateConverter,
 							SelectConverter selectConverter,
+							DeleteConverter deleteConverter,
 							DropConverter dropConverter) {
 		this.insertConverter = insertConverter;
 		this.updateConverter = updateConverter;
 		this.selectConverter = selectConverter;
+		this.deleteConverter = deleteConverter;
 		this.dropConverter = dropConverter;
 	}
 
@@ -76,7 +80,11 @@ public class VisitorConverter implements Converter {
 			statement = dropConverter.convert(drop);
 		}
 
-		public void visit(Delete delete) { throw new UnsupportedOperationException(delete.getClass().getSimpleName()); }
+		@Override
+		public void visit(Delete delete) {
+			statement = deleteConverter.convert(delete);
+		}
+
 		public void visit(Replace replace) { throw new UnsupportedOperationException(replace.getClass().getSimpleName()); }
 		public void visit(Truncate truncate) { throw new UnsupportedOperationException(truncate.getClass().getSimpleName()); }
 		public void visit(CreateTable createTable) { throw new UnsupportedOperationException(createTable.getClass().getSimpleName()); }

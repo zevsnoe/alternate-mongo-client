@@ -1,9 +1,12 @@
 package db.client.mongo.gateway.result;
 
 import com.mongodb.MongoBulkWriteException;
+import com.mongodb.MongoException;
+import com.mongodb.MongoWriteConcernException;
 import com.mongodb.MongoWriteException;
 import com.mongodb.WriteResult;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import db.client.contract.client.QueryExecutionResult;
 import db.client.mongo.gateway.result.failed.FailedDropQueryExecutionResult;
@@ -91,4 +94,23 @@ public class QueryExecutionResultBuilderFacade {
 		return new FailedQueryExecutionResult(e);
 	}
 
+	public static QueryExecutionResult deleteSuccesful(DeleteResult deleteResult) {
+		return DeleteQueryExecutionResultBuilder.deleteSuccessful(deleteResult);
+	}
+
+	public static QueryExecutionResult deleteFailed(MongoWriteException e) {
+		return DeleteQueryExecutionResultBuilder.deleteFailed(e);
+	}
+
+	public static QueryExecutionResult deleteFailed(MongoWriteConcernException e) {
+		return DeleteQueryExecutionResultBuilder.deleteFailed(e);
+	}
+
+	public static QueryExecutionResult deleteFailed(MongoException e) {
+		return DeleteQueryExecutionResultBuilder.deleteFailed(e);
+	}
+
+	public static QueryExecutionResult deleteFailed(Exception e) {
+		return DeleteQueryExecutionResultBuilder.deleteFailed(e);
+	}
 }

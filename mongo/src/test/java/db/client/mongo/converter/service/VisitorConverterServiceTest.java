@@ -1,6 +1,7 @@
 package db.client.mongo.converter.service;
 
 import db.client.contract.mongo.QueryConvertedStatement;
+import db.client.mongo.converter.contract.DeleteConverter;
 import db.client.mongo.converter.contract.DropConverter;
 import db.client.mongo.converter.contract.InsertConverter;
 import db.client.mongo.converter.contract.SelectConverter;
@@ -26,7 +27,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class VisitorConverterServiceTest {
 
@@ -44,6 +44,9 @@ public class VisitorConverterServiceTest {
 
 	@Mock
 	private DropConverter dropConverter;
+
+	@Mock
+	private DeleteConverter deleteConverter;
 
 	@Mock
 	private QueryConvertedStatement statement;
@@ -72,14 +75,15 @@ public class VisitorConverterServiceTest {
 		  "drop table mycollection");
 	}
 
-	@Test(expected = MongoSQLConverterException.class)
-	public void visitCreateNotSupported()  {
-		converter.convert(spy(CreateTable.class));
+	@Test
+	public void visitDelete() throws JSQLParserException {
+		test(deleteConverter.convert(any()),
+		  "delete from mycollection where name = 'vasya'");
 	}
 
 	@Test(expected = MongoSQLConverterException.class)
-	public void visitDeleteNotSupported()  {
-		converter.convert(spy(Delete.class));
+	public void visitCreateNotSupported()  {
+		converter.convert(spy(CreateTable.class));
 	}
 
 	@Test(expected = MongoSQLConverterException.class)

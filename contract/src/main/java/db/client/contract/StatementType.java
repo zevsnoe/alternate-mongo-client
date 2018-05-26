@@ -1,5 +1,5 @@
 package db.client.contract;
 
 public enum StatementType {
-	SELECT, INSERT, UPDATE, DROP
+	SELECT, INSERT, UPDATE, DROP, DELETE
 }
