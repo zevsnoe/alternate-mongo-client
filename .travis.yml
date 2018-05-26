@@ -8,7 +8,9 @@ jdk:
 before_install:
  - chmod +x gradlew
 
-install: gradle wrapper
+install:
+ - gradle wrapper
+ - gradle assemble
 
 services: mongodb
 # - docker
